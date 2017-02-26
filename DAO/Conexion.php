@@ -2,7 +2,7 @@
 
 function Conectar()
 {
-    $con = pg_connect("host=localhost port=5432 dbname=BDSCHEDULE user=postgres password=123456") or die("error");
+    $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("error");
     return $con;
 }
 

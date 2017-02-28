@@ -1,5 +1,6 @@
 <?php
-
+echo 'LLEGUO AQUI';
+exit();
 session_start();
 include_once '../DAO/Conexion.php';
 include_once '../DAO/Registro/Privilegio.php';

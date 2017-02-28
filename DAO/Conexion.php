@@ -8,7 +8,7 @@ $pass = "aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9";
 $db_name ="vvggesku";
 $port = "5432";
 
-var_dump('SI LLEGAMOS AQUI');
+//var_dump('SI LLEGAMOS AQUI');
 exit();
 function Conectar()
 {

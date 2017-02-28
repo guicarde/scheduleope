@@ -5,8 +5,8 @@ session_start();
 include_once '../DAO/Conexion.php';
 include_once '../DAO/Registro/Privilegio.php';
 
-echo 'SI LLEGO AQUI';
-exit();
+//echo 'SI LLEGO AQUI';
+//exit();
 $direccionGuardar = "location: ../Vistas/index.php";
 
 $valor="";

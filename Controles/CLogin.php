@@ -1,6 +1,6 @@
 <?php
-echo 'LLEGUO AQUI';
-exit();
+//echo 'LLEGUO AQUI';
+//exit();
 session_start();
 include_once '../DAO/Conexion.php';
 include_once '../DAO/Registro/Privilegio.php';
@@ -25,7 +25,8 @@ $password=$_POST['password'];
 
     else{
     $query = pg_query($con,"SELECT * FROM tbl_usuario WHERE usu_nom_usuario = '$username' ") or die("ERROR");
-
+    var_dump($query);
+        exit();
     $data = pg_fetch_array($query);
         if(md5($password) != $data['usu_contrasenia']) 
         {

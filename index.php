@@ -16,7 +16,7 @@ $db_name ="vvggesku";
 $port = "5432";
 
  // Open a PostgreSQL connection
- $con = pg_connect("host=$host dbname=$db user=$user password=$pass") or die ("Could not connect to server\n");
+ $con = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port") or die ("Could not connect to server\n");
           echo "<h1>Conexion Exitosa PHP - PostgreSQL</h1><hr><br>";
  $query = 'SELECT * FROM tbl_periodo';
  $results = pg_query($con, $query) or die('Query failed: ' . pg_last_error());
@@ -30,10 +30,10 @@ $port = "5432";
 	<table>
 		<tr>
 			<td>
-				<h1 id = "message"><?php echo "TRABAJANDO EN BLUEMIX"; ?>
+				<h1><?php echo "TRABAJANDO EN BLUEMIX"; ?></h1>
 
 				
-				<p></p> inicio <span class="blue">BLUEMIX</span>
+				<p></p> inicio <span>BLUEMIX</span>
 			</td>
 			
  

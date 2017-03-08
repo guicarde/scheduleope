@@ -3,7 +3,6 @@
 <head>
 	<title>ABCognitive</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <?php
@@ -30,13 +29,11 @@ $port = "5432";
 ?>
 	<table>
 		<tr>
-			<td style='width: 30%;'><img class = 'newappIcon' src='images/newapp-icon.png'>
-			</td>
 			<td>
 				<h1 id = "message"><?php echo "TRABAJANDO EN BLUEMIX"; ?>
 
 				
-				<p class='description'></p> inicio <span class="blue">BLUEMIX</span>.
+				<p></p> inicio <span class="blue">BLUEMIX</span>
 			</td>
 			
  

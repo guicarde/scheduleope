@@ -1,17 +1,46 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-         <?php
-        header("location: Vistas/login.php")
-        ?>
-    </body>
+<head>
+	<title>ABCognitive</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<?php
+$services = getenv("VCAP_SERVICES");
+$services_json = json_decode($services, true);
+$elephantsql_config = $services_json["elephantsql"][0]["credentials"];
+$host = "jumbo.db.elephantsql.com";
+$user = "vvggesku";
+$pass = "aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9";
+$db_name ="vvggesku";
+$port = "5432";
+
+ // Open a PostgreSQL connection
+ $con = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port") or die ("Could not connect to server\n");
+          echo "<h1>Conexion Exitosa PHP - PostgreSQL</h1><hr><br>";
+ $query = 'SELECT * FROM tbl_periodo';
+ $results = pg_query($con, $query) or die('Query failed: ' . pg_last_error());
+ 
+ $row = pg_fetch_row($results);
+ echo $row[0] . "\n";
+ // Closing connection
+ pg_close($con);
+
+?>
+	<table>
+		<tr>
+			<td style='width: 30%;'><img class = 'newappIcon' src='images/newapp-icon.png'>
+			</td>
+			<td>
+				<h1 id = "message"><?php echo "TRABAJANDO EN BLUEMIX"; ?>
+
+				
+				<p class='description'></p> inicio <span class="blue">BLUEMIX</span>.
+			</td>
+			
+ 
+		</tr>
+	</table>
+</body>
 </html>

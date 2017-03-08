@@ -1,3 +1,0 @@
-{
-  "PHP_EXTENSIONS": ["pdo", "pdo_mysql", "mysql", "mysqli" , "mbstring", "bz2", "zlib", "curl", "mcrypt", "openssl", "pgsql", "pdo_pgsql"]
-}

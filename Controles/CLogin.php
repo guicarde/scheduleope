@@ -62,8 +62,8 @@ $password=$_POST['password'];
         $nombre_usuario = $row2['usu_nombres_usuario'];
         $apellido_usuario = $row2['usu_apellidos_usuario'];
         $idusuario = $row2['usu_idusu'];
-        $name = $nombre_usuario." ".$apellido_usuario;var_dump($row2); exit();
-        $rol = $row2['usu_rol'];
+        $name = $nombre_usuario." ".$apellido_usuario;//var_dump($row2); exit();
+        $rol = $row2['rol_idrol'];//$rol = $row2['usu_rol'];
         
         $privilegio = new Privilegio();
         $privilegios = $privilegio->listar($id_usuario);

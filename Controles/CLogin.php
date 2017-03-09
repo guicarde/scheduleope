@@ -25,8 +25,8 @@ $password=$_POST['password'];
     }
 
     else{
-        echo 'ENTRA AL 1';
-        exit();
+        //echo 'ENTRA AL 1';
+        //exit();
     $query = pg_query($con,"SELECT * FROM tbl_usuario WHERE usu_nom_usuario = '$username' ") or die("ERROR");
     //var_dump($query);
     //exit();
@@ -40,8 +40,8 @@ $password=$_POST['password'];
         }
     else
     {
-        echo 'ENTRA AL 2';
-        exit();
+        //echo 'ENTRA AL 2';
+        //exit();
         $query = pg_query($con,"SELECT * FROM tbl_usuario WHERE usu_nom_usuario = '$username'");
         $row = pg_fetch_array($query);
         $_SESSION["s_username"] = $row['usu_nom_usuario'];

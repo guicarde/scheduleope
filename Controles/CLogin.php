@@ -28,7 +28,7 @@ $password=$_POST['password'];
         //echo 'ENTRA AL 1';
         //exit();
     $query = pg_query($con,"SELECT * FROM tbl_usuario WHERE usu_nom_usuario = '$username' ") or die("ERROR");
-    //var_dump($query);
+    var_dump($query);
     //exit();
     $data = pg_fetch_array($query);
         if(md5($password) != $data['usu_contrasenia']) 

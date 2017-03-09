@@ -1,5 +1,5 @@
 ﻿<?php
-include_once 'C:\xampp\htdocs\SistemaSchedule\DAO\Conexion.php';
+include_once '../Conexion.php';
 
 if(!isset($_SESSION)){
 session_start();

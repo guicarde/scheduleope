@@ -43,7 +43,7 @@ if (isset($_POST['hidden_excel'])) {
         
         $MaxArreglo=array();
         
-        for ($row = 13; $row <= 2290; $row++)
+        for ($row = 13; $row <= 2085; $row++)
         {
             //extraer fila
             $rowData = $sheet->rangeToArray('A' . $row . ':' . 'AE' . $row,NULL, TRUE, FALSE);

@@ -552,7 +552,7 @@ $diast = $_SESSION['arreglo_dias'];
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">ACCIÓN A TOMAR</label>
                               <div class="col-sm-10">
-                                  <input type="time" name="t_accion" value="<?php echo $accion;?>" id="id_accion" class="form-control">
+                                  <input type="text" name="t_accion" value="<?php echo $accion;?>" id="id_accion" class="form-control">
                               </div>
                           </div>
 

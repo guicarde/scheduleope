@@ -122,6 +122,8 @@ foreach ($arreglo as $r)
         $plataforma = 'SYSTEM P';
     }else if($r['actividad_plataforma']=='4') {
         $plataforma = 'SYSTEM X';
+    }else{
+        $plataforma='NO TIENE';
     }
     
     

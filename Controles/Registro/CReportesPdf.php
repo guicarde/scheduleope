@@ -15,9 +15,7 @@ if(isset($_POST['hidden_documento']))
             if($accion=='generar_reporte_schedule')
     {   
        $idschedule= $_POST['id_schedule'];
-       var_dump($idschedule);
-                exit();
-     
+           
                 $ob = new Schedule();
                 $ob->setId($idschedule);
                 $lista = $ob->reporte($ob);

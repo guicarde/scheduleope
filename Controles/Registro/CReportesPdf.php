@@ -16,6 +16,9 @@ if(isset($_POST['hidden_documento']))
     {   
        $idschedule= $_POST['id_schedule'];
            
+                echo 'SI LLEGO AQUI';
+                exit();
+                
                 $ob = new Schedule();
                 $ob->setId($idschedule);
                 $lista = $ob->reporte($ob);

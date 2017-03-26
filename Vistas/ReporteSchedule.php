@@ -276,7 +276,7 @@ $html = '
   <table border="0" style="font-size:7;font-family:courier;font-weight:bold"  width="630" cellpadding="6">
         <tr align="center">
             <td width="300"><label></label></td>
-            <td width="360" rowspan="3"><label><img src="../Controles/Registro/Firmas/firma2.png" alt="test alt attribute" width="145" height="60" border="0" /></label></td>
+            <td width="360" rowspan="3"><label><img src="../Controles/Registro/Firmas/firma.jpg" alt="test alt attribute" width="145" height="60" border="0" /></label></td>
             
         </tr>
   </table>  

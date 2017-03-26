@@ -276,7 +276,10 @@ $actividades = $actividad->act_asig_para_usuario($actividad);
                                                     </td>
                                                     <td><?php echo $r['servidor_hostname'].' ('.$r['servidor_ip'].')' ?></td>
                                                     
-                                                    <td><a id="add-without-image" class="btn btn-info  btn-sm" href="javascript:;">Comentario</a></td>
+                                                    <td style="font-size:8pt;color:#050355;font-weight:bold" width="5%"><?php if($r['actividad_comentario']!= '') { ?>
+                                                        <a onclick="ventana('<?php if ($r['actividad_comentario']!=null){ echo trim(strtoupper($r['actividad_comentario']));}else {echo 'NO TIENE COMENTARIO';} ?>')" class="btn btn-info  btn-sm" >Comentario</a>
+                                                    <?php }?>
+                                                         </td>
                                                      <td>
                                                          <?php if($r['schedact_horaini'] == '') { ?>
                                                          <form method='POST' action="../Controles/Registro/CSchedule.php" >

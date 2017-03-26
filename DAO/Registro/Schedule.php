@@ -390,7 +390,9 @@ function setDescripcion($descripcion) {
     
              function reporte(Schedule $s)
     {
-         $con = Conectar();
+          $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+   
+         //$con = Conectar();
          echo 'SI conecta correctamente';
                  exit();
                  

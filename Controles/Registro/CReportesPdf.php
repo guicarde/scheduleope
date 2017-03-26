@@ -15,18 +15,17 @@ if(isset($_POST['hidden_documento']))
             if($accion=='generar_reporte_schedule')
     {   
        $idschedule= $_POST['id_schedule'];
-           
-                echo 'SI LLEGO AQUI';
-                exit();
-                
+                          
                 $ob = new Schedule();
                 $ob->setId($idschedule);
                 $lista = $ob->reporte($ob);
+                echo 'si carga arreglo';
+                exit();
                 $lista2 = $ob->buscarPorId($ob);
                 $_SESSION['Schedule']=$lista;
                 $_SESSION['Schedule_cabecera']=$lista2;
                 $_SESSION['id_schedule']=$idschedule;
-
+                
                  header("location: ../../Vistas/ReporteSchedule.php");
            
        

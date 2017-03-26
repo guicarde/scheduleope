@@ -19,8 +19,8 @@ if(isset($_POST['hidden_documento']))
                 $ob = new Schedule();
                 $ob->setId($idschedule);
                 $lista = $ob->reporte($ob);
-                echo 'si carga arreglo';
-                exit();
+                //echo 'si carga arreglo';
+                //exit();
                 $lista2 = $ob->buscarPorId($ob);
                 $_SESSION['Schedule']=$lista;
                 $_SESSION['Schedule_cabecera']=$lista2;

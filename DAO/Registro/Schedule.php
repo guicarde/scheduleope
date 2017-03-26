@@ -350,7 +350,7 @@ function setDescripcion($descripcion) {
     
          function buscarPorId(Schedule $s){
        
-        $con = Conectar();
+        $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
         $sql = "SELECT * FROM schedule_buscar_por_id($s->id)";
         $res = pg_query($con,$sql);
         $array=null;

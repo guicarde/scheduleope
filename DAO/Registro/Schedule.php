@@ -390,6 +390,8 @@ function setDescripcion($descripcion) {
     
              function reporte(Schedule $s)
     {
+         echo 'SI LLEGO A FUNCIÓN REPORTE';
+                 exit();
          $con = Conectar();
          $sql = "SELECT * FROM schedule_reporte($s->id)";
      

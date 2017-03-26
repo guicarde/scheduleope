@@ -390,9 +390,10 @@ function setDescripcion($descripcion) {
     
              function reporte(Schedule $s)
     {
-         echo 'SI LLEGO A FUNCIÓN REPORTE';
-                 exit();
          $con = Conectar();
+         echo 'SI conecta correctamente';
+                 exit();
+                 
          $sql = "SELECT * FROM schedule_reporte($s->id)";
      
          $res = pg_query($con,$sql);

@@ -10,3 +10,4 @@
 extension=openssl.so
 ;extension=pgsql.so
 ;extension=pdo_pgsql.so
+date.timezone = America/Rio_branco

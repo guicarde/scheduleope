@@ -745,7 +745,15 @@ function setDescripcion($descripcion) {
 //        $val = pg_fetch_result($res,0,0);
         
         }
-    
+    function elimina_schedule(Schedule $s){
+        
+        $con =  Conectar();
+        $sql = "SELECT * FROM schedule_eliminar($s->id)";
+     
+        $res = pg_query($con,$sql);
+//        $val = pg_fetch_result($res,0,0);
+        
+        }
     
     
         }

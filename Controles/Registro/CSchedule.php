@@ -485,6 +485,18 @@ if (isset($_POST['hidden_schedule'])) {
         header("location: ../../Vistas/TareasPendientes.php");    
        
     }
+ else if ($accion == 'elimina_schedule') {
+
+        $id = $_POST['id_schedule'];
+
+        
+            $ob_schedule = new Schedule();
+            $ob_schedule->setId($id);
+            $ob_schedule->elimina_schedule($ob_schedule);
+            unset($_SESSION['arreglo_buscado_schedule']);
+            header("location: ../../Vistas/MantenerSchedule.php");    
+       
+    }
     
         else if ($accion == 'filtrarschedule')
     {

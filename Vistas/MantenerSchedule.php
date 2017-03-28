@@ -328,6 +328,13 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                         </form>                                                       
                                                           
                                                     </td>
+                                                    <td>
+                                                        <form method='POST' action="../Controles/Registro/CSchedule.php">
+                                                            <input type="hidden" name="id_schedule" value="<?php echo $r['schedule_idschedule'] ?>">
+                                                            <input type="hidden" name="hidden_schedule" value="elimina_schedule">
+                                                            <button type="submit" class="btn btn-danger btn-xs"  title="Eliminar"><i class="fa fa-trash-o "></i></button>
+                                                        </form> 
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
 

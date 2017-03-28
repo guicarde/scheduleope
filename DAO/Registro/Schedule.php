@@ -154,8 +154,8 @@ function setDescripcion($descripcion) {
         
         $con =  Conectar();
         $sql = "SELECT * FROM schedule_insertar('$s->fecha',$s->idsedeturno,'1')";
-//        var_dump($sql);
-//        exit();
+        var_dump($sql);
+        exit();
         $res = pg_query($con,$sql);
         $val = pg_fetch_result($res,0,0);
         if($val=='0'){

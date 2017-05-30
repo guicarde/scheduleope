@@ -311,9 +311,8 @@ $usuario2->conectado($usuario2);
                       </ul>
                   </li>
                   <?php } ?>  
-                  
-                   <?php } ?>
-                  <?php } ?>
+                        
+                   <?php if ($p['rol']!=3) {?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-clock-o"></i>
@@ -323,6 +322,20 @@ $usuario2->conectado($usuario2);
                           <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
                       </ul>
                   </li>
+		  <?php } ?>
+		  <?php if ($p['menu_idmenu']==10) {?>
+                  <li class="sub-menu">
+                      <a  href="javascript:;" >
+                          <i class="fa fa-clock-o"></i>
+                          <span>Monitoreo India</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="MonitoreoIndia.php">Monitoreo India</a></li>
+                      </ul>
+                  </li>
+                   <?php } ?>
+		       <?php } ?>
+                  <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-warning"></i>

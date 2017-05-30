@@ -214,8 +214,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                   </li>
                   <?php } ?>  
                   
-                   <?php } ?>
-                  <?php } ?>
+                   <?php if ($_SESSION['rol']!=3) {?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-clock-o"></i>
@@ -225,6 +224,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                           <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
                       </ul>
                   </li>
+		  <?php } ?> 
                   <?php if ($p['menu_idmenu']==10) {?>
                   <li class="sub-menu">
                       <a  class="active" href="javascript:;" >
@@ -235,7 +235,9 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                           <li class="active" ><a  href="MonitoreoIndia.php">Monitoreo India</a></li>
                       </ul>
                   </li>
-                   <?php } ?>  
+                   <?php } ?> 
+		       <?php } ?>
+                  <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-warning"></i>

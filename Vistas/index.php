@@ -312,7 +312,7 @@ $usuario2->conectado($usuario2);
                   </li>
                   <?php } ?>  
                         
-                   <?php if ($p['rol']!=3) {?>
+                   <?php if ($_SESSION['rol']!=3) {?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-clock-o"></i>

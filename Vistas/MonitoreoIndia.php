@@ -298,8 +298,8 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                 <tr style="font-size:8pt;" <?php if($r['actividad_tws']=='1')echo 'bgcolor="68FF7E"';?>>
                                                     <td style="font-size:5pt;" width="5%"><?php echo $num;
                                         $num++; ?></td>
-                                                    <td style="font-size:5pt;" width="5%"><?php echo date("d-m-Y",strtotime($r['fecha_tarea'])).' '. $r['actividad_horaejecucion'] ?></td>
-                                                    <td style="font-size:5pt;" width="5%"><?php echo date("d-m-Y",strtotime($r['fecha_tarea'])).' '.$r['actividad_horatermino'] ?></td>
+                                                    <td style="font-size:5pt;" width="5%"><?php echo date("d/m",strtotime($r['fecha_tarea'])).' '. $r['actividad_horaejecucion'] ?></td>
+                                                    <td style="font-size:5pt;" width="5%"><?php echo date("d/m",strtotime($r['fecha_tarea'])).' '.$r['actividad_horatermino'] ?></td>
 <!--                                                    <td><?php echo $r['actividad_duracion'] ?></td>-->
 <!--                                                    <td><?php if ($r['actividad_interturno'] == '1'){ echo 'SI';} ?>
                                                         <?php if ($r['actividad_interturno'] == '2'){ echo 'NO';} ?>

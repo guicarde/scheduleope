@@ -346,7 +346,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                 <div class="table-responsive">
                                 <table class="table table-responsive table-advance table-hover">
                                     <h4><i class="fa fa-angle-right"></i> DETALLE DE ACTIVIDADES DEL SCHEDULE</h4>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;TAREAS POR TWS
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; TAREAS POR TWS
                                     <hr>
 
 <?php if ($actividades != null) { ?>

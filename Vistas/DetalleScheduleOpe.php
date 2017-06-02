@@ -91,6 +91,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
         <link href="../Recursos/../Recursos/assets/css/style.css" rel="stylesheet">
         <link href="../Recursos/css/StyleGeneral.css" rel="stylesheet">
         <link href="../Recursos/../Recursos/assets/css/style-responsive.css" rel="stylesheet">
+        <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>

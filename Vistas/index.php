@@ -310,19 +310,8 @@ $usuario2->conectado($usuario2);
                           <li><a  href="GuardarExcel.php">Guardar EXCEL</a></li>
                       </ul>
                   </li>
-                  <?php } ?>  
-                        
-                   <?php if ($_SESSION['rol']!=3) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-clock-o"></i>
-                          <span>Tareas Pendientes</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
-                      </ul>
-                  </li>
-		  <?php } ?>
+                  <?php } ?>                         
+                   
 		  <?php if ($p['menu_idmenu']==10) {?>
                   <li class="sub-menu">
                       <a  href="javascript:;" >
@@ -336,6 +325,17 @@ $usuario2->conectado($usuario2);
                    <?php } ?>
 		       <?php } ?>
                   <?php } ?>
+                  <?php if ($_SESSION['rol']!=3) {?>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-clock-o"></i>
+                          <span>Tareas Pendientes</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
+                      </ul>
+                  </li>
+		  <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-warning"></i>

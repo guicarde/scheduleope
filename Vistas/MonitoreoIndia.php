@@ -230,6 +230,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                    <?php } ?> 
 		       <?php } ?>
                   <?php } ?>
+                  <?php if ($_SESSION['rol']!=3) {?>
 		     <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-clock-o"></i>
@@ -239,6 +240,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                           <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
                       </ul>
                   </li>
+                  <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-warning"></i>

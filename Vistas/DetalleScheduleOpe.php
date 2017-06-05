@@ -551,60 +551,11 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
         <!-- Unicas Librerias Utiliazabas para subir archivos imagens, audio, etc-->
         <link href="../Recursos/filebootstrap/kartik-v-bootstrap-fileinput-d66e684/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
         <script src="../Recursos/filebootstrap/kartik-v-bootstrap-fileinput-d66e684/js/fileinput.js" type="text/javascript"></script>    
-        <!-- fin -->
-        <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
         <!--common script for all pages-->
         <script src="../Recursos/../Recursos/assets/js/common-scripts.js"></script>
         <!--script for this page-->
     <!--script for this page-->
     <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
-    
-
-    
-        <script type="text/javascript">
-            
-        
-        $(document).ready(function () {
-            setInterval(function() {
-         
-        <?php
-        $ventmax = new Schedule();
-        $ventmax->setId($_SESSION['id_schedule']);
-        $ventanas=$ventmax->listar_act_ventana_maxima($ventmax);
-        if ($ventanas != null) { ?>
-                        <?php
-                            $num = 1;
-                            foreach ($ventanas as $v) {                              
-                         ?> 
-         
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'VENTANA MÁXIMA',
-            // (string | mandatory) the text inside the notification
-            text: '<marquee direction="up" behavior="alternate">TAREA:<br><?php echo $v['actividad_descripcion'];?> <br><br>Cliente:<?php echo $v['cliente_nombre'];?> <br><br>Hora Máxima de Ventana: <?php echo $v['actividad_ventana_max'];?> <br><br>Accion a Tomar: <?php echo $v['actividad_accion'];?></marquee> ',
-            // (string | optional) the image to display on the left
-            image: '../Recursos/assets/img/limites.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
-        
-        return false;
-        <?php } ?> 
-    
-         },300000);
-          
-         
-        });
-        <?php } ?>
-        
-    
-	</script>
-        
-        
     </body>
 </html>

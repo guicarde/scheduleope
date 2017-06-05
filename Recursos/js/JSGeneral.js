@@ -101,7 +101,7 @@ function finalizar_Tarea(id_schedule)
             }
             ); 
     
-    },1000);
+    },10000);
     
     
 }

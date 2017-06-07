@@ -144,18 +144,23 @@ if (isset($_POST['hidden_schedule'])) {
             $ob_schedule->setIdusu($id_usuario);
             
             $resul = $ob_schedule->asignar_operador($ob_schedule);
+
+        header("location: ../../Vistas/MisSchedules.php");    
+       
+    }
+            else if ($accion == 'desasignar_schedule')
+    {
+        unset($_SESSION['arreglo_cargado_schedule']);
+
+        $id_schedule = $_POST['id_schedule'];
+        $id_usuario = $_SESSION['id_username'];
+        
+            $ob_schedule = new Schedule();
+            $ob_schedule->setId($id_schedule);
+            $ob_schedule->setIdusu($id_usuario);
             
-//            $ob_act = new Schedule();
-//            $ob_act->setId($id_schedule);
-//            $array = $ob_act->buscar_actividad_por_schedule($ob_act);
-//            
-//            foreach ($array as $a) {
-//            $sched_act = new Schedule();
-//            $sched_act->setIdschedact($a['schedact_idschedact']);
-//            $sched_act->setIdschedope($resul);
-//            $sched_act->insertar_act_sc_ope($sched_act);
-//                
-//            }
+            $resul = $ob_schedule->desasignar_schedule($ob_schedule);
+
         header("location: ../../Vistas/MisSchedules.php");    
        
     }
@@ -166,18 +171,18 @@ if (isset($_POST['hidden_schedule'])) {
         $id_schedule = $_POST['id_schedule'];
         $turno =  $_POST['turno'];
         
-//        $ob_actividades = new Schedule();
-//        $ob_actividades->setId($id_schedule);
-//        if($turno=='19:00:00')
-//        {
-//        $arreglo = $ob_actividades->listar_por_schedule_usu($ob_actividades);
-//        }else if ($turno=='23:00:00'){
-//        $arreglo = $ob_actividades->listar_por_schedule_usu_noche($ob_actividades);    
-//        }else{
-//         $arreglo = $ob_actividades->listar_por_schedule_usu_dia($ob_actividades);    
-//        }
+        $ob_actividades = new Schedule();
+        $ob_actividades->setId($id_schedule);
+        if($turno=='19:00:00')
+        {
+        $arreglo = $ob_actividades->listar_por_schedule_usu($ob_actividades);
+        }else if ($turno=='23:00:00'){
+        $arreglo = $ob_actividades->listar_por_schedule_usu_noche($ob_actividades);    
+        }else{
+         $arreglo = $ob_actividades->listar_por_schedule_usu_dia($ob_actividades);    
+        }
         
-//        $_SESSION['arreglo_actividad_por_schedule'] = $arreglo;
+        $_SESSION['arreglo_actividad_por_schedule'] = $arreglo;
         $_SESSION['accion_schedule'] = 'detalle_schedule';
         $_SESSION['id_schedule'] = $id_schedule ;
         $_SESSION['turno'] = $turno ;

@@ -160,9 +160,9 @@ foreach ($arreglo as $r)
             <td><label>'.$r['cliente_nombre'].'</label></td>   
             <td width="80"><label>'.$r['servidor_hostname'].'<br>'.$r['servidor_ip'].'</label></td>
             <td width="160"><label>'.$r['actividad_descripcion'].'</label></td>  
-            <td  width="60" bgcolor="yellow"><b><label>'.$horaini.'</label></b></td>  
-            <td  width="60" bgcolor="#D2FDFC"><label>'.$horafin.'</label></td>
-            <td  width="60" bgcolor="#819CF4"><label>'.substr($r['schedact_duracion'], 0).'</label></td>    
+            <td  width="60" bgcolor="yellow"><b><label>'.substr($horaini, 0,5).'</label></b></td>  
+            <td  width="60" bgcolor="#D2FDFC"><label>'.substr($horafin, 0,5).'</label></td>
+            <td  width="60" bgcolor="#819CF4"><label>'.substr($r['schedact_duracion'], 0,5).'</label></td>    
             <td  width="60" bgcolor="#FFEBAC" sytle="font-weight:bold;"><label>'.$r['schedact_comentario'].'</label></td>
             <td><label>'.$r['usu_nombres_usuario'].' '.$r['usu_apellidos_usuario'].'</label></td> 
         </tr>

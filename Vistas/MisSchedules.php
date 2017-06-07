@@ -293,6 +293,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -335,6 +336,15 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                             <input type="hidden" name="hidden_documento" value="generar_reporte_cierre_schedule">
                                                             <button type="submit" class="btn btn-facebook btn-xs"  title="Ver Detalle Schedule"><i class="fa fa-file-pdf-o "> PDF</i></button>
                                                         </form>   
+                                                    </td>
+                                                    <td>
+                                                        <?php if($r['schedule_estado']== '2' ){ ?>                                                
+                                                       <form method='POST' id='form_desasignar' action="../Controles/Registro/CSchedule.php">
+                                                            <input type="hidden" name="id_schedule" value="<?php echo $r['schedule_idschedule'] ?>">
+                                                            <input type="hidden" name="hidden_schedule" value="desasignar_schedule">
+                                                            <button type="button" class="btn btn-twitter btn-xs"  onclick="validar();" title="Desasignar Schedule"><i class="fa fa-check-circle"> DESASIGNAR SCHEDULE</i></button>
+                                                        </form>  
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

@@ -557,5 +557,6 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
     <!--script for this page-->
     <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
+ 
     </body>
 </html>

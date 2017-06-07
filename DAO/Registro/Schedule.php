@@ -194,6 +194,25 @@ function setDescripcion($descripcion) {
             return $val;
         }
         }
+        
+                function desasignar_schedule(Schedule $s){
+        
+        $con =  Conectar();
+        $sql = "SELECT * FROM schedule_desasignar($s->id)";
+//        var_dump($sql);
+//        exit();
+        $res = pg_query($con,$sql);
+        $val = pg_fetch_result($res,0,0);
+        if($val=='0'){
+            $_SESSION['mensaje_schedule']="Error al desasignar Schedule al Operador"; 
+            return 0;
+        }
+        else{
+            $_SESSION['mensaje_schedule']="Los datos se registraron satisfactoriamente"; 
+            return $val;
+        }
+        }
+        
       function buscar_actividad_por_schedule(Schedule $s)
     {
          $con = Conectar();
@@ -515,8 +534,8 @@ function setDescripcion($descripcion) {
     {
          $con = Conectar();
          $sql = "SELECT * FROM actividad_por_schedule_usu_ventana_max($s->id)";
-         //var_dump($sql);
-       //  exit();
+         var_dump($sql);
+         exit();
          $res = pg_query($con,$sql);
          $array=null;
          

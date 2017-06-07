@@ -13,8 +13,6 @@ function iniciarTarea(id_schedule)
             }, function(){
             }
             );    
-    
-        
         $("#div_finalizar_tarea"+id_schedule).load("../Controles/Registro/CSchedule.php", 
             {
               hidden_schedule : 'habilitar_finalizar',
@@ -162,7 +160,23 @@ function cancelarguardarpriv(){
     document.getElementById('formcancelar2').submit();
 }
 
+function validar() { 
 
+    if(confirm('Usted va desasignar el schedule!  \n \n Esta seguro de continuar  ?')) { 
+
+           if(confirm(' Esta seguro ?  \n Esto implica que todos los registros del schedule se borraran .\n Esta completamente seguro de continuar?')) {document.getElementById('form_desasignar').submit();} 
+
+              else {
+               return false;
+
+             }   
+
+      }else {
+               return false;
+
+             }  
+
+}
 
 
 

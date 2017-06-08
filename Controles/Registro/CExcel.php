@@ -86,7 +86,7 @@ if (isset($_POST['hidden_excel'])) {
                         //Columna P
                         $I = trim(strtoupper($r[15])); if($I==null){ $I=''; }                        
                         //Columna Q
-                        $J = trim(strtoupper($r[16])); if($J==null){ $J=''; }                        
+                        $J = trim($r[16]); if($J==null){ $J=''; }                        
                         //Columna R
                         $K = PHPExcel_Style_NumberFormat::toFormattedString($r[17], 'hh:mm:ss');;
                         //Columna S

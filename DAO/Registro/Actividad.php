@@ -332,10 +332,12 @@ function setIddia($iddia) {
             return null;
         }
     }
-	         function listar_india(){
+	         function listar_india(Actividad $a){
        
         $con = Conectar();
-        $sql = "SELECT * FROM schedule_india_prueba()";
+        $sql = "SELECT * FROM schedule_india_prueba('$a->fechareg')";
+//        var_dump($sql);
+//        exit();
         $res = pg_query($con,$sql);
         $array=null;
         while($fila = pg_fetch_assoc($res))

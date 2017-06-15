@@ -380,6 +380,19 @@ if (isset($_POST['hidden_actividad'])) {
         header("location: ../../Vistas/GuardarActividad.php");
      }
      
+              else if($accion=='buscar_india')
+     {
+        unset($_SESSION['arreglo_buscado_india']);
+        $fecha = $_POST['t_fecha_schedule'];
+        $actividad = new Actividad();
+        $actividad->setFechareg($fecha); 
+        $arreglo=$actividad->listar_india($actividad);
+
+        $_SESSION['arreglo_buscado_india'] = $arreglo;
+        $_SESSION['accion_actividad']='busqueda_india';  
+        header("location: ../../Vistas/MonitoreoIndia.php");
+     }
+     
          else if($accion == 'anular'){
              
         $id_actividad_eliminar = $_POST['id_hidden_eliminar'];

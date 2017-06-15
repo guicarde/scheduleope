@@ -34,18 +34,18 @@ $procedimientos = $procedimiento->listar_act();
 
 $cliente = new Cliente();
 $clientes = $cliente->listar_act();
-
 $actividad = new Actividad();
+$actividad->setFechareg(date("Y-m-d")); 
 
 if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '') {
 
-    if ($_SESSION['accion_actividad'] == 'busqueda') {
-        $actividades = $_SESSION['arreglo_buscado_actividad'];
+    if ($_SESSION['accion_actividad'] == 'busqueda_india') {
+        $actividades = $_SESSION['arreglo_buscado_india'];
     } else {
-        $actividades = $actividad->listar_india();
+        $actividades = $actividad->listar_india($actividad);
     }
 } else {
-    $actividades = $actividad->listar_india();
+    $actividades = $actividad->listar_india($actividad);
 }
 
 ?>
@@ -272,7 +272,32 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
             <section id="main-content">
                 <section class="wrapper">
                     <h3><i class="fa fa-angle-right"></i> MONITOREO INDIA</h3>
-             <div class="row mt">
+                    <form class="form-horizontal style-form" action="../Controles/Registro/CActividad.php" method="POST">
+                      <input type="hidden" name="hidden_actividad" value="buscar_india" id="hiddenactividad">    
+                        <!-- Opciones de Busqueda -->
+                        <div class="row mt">
+                            <div class="col-lg-12">
+                                <div class="form-panel">
+                                    <h4 class="mb"><i class="fa fa-angle-right"></i> OPCIONES DE BUSQUEDA</h4>
+                                    <div class="form-group">
+                                     <label class="col-sm-2 col-sm-2 control-label">FECHA DE SCHEDULE</label>
+                                        <div class="col-sm-2">
+                                            <input type="date" name="t_fecha_schedule" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label"></label>
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-theme03"><i class="fa fa-search"></i> BUSCAR</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div><!-- col-lg-12-->      	
+                        </div><!-- /row -->
+                    </form>
+                    
+                    <div class="row mt">
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <table id="example1" class="table table-responsive table-advance table-hover">

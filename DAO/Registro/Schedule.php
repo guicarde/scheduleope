@@ -369,7 +369,7 @@ function setDescripcion($descripcion) {
     
          function buscarPorId(Schedule $s){
        
-        $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+        $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
         $sql = "SELECT * FROM schedule_buscar_por_id($s->id)";
         $res = pg_query($con,$sql);
         $array=null;
@@ -409,7 +409,7 @@ function setDescripcion($descripcion) {
     
              function reporte(Schedule $s)
     {
-          $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+          $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
    
          //$con = Conectar();
          //echo 'SI conecta correctamente';
@@ -433,7 +433,7 @@ function setDescripcion($descripcion) {
     }
                  function reporte_cierre(Schedule $s)
     {
-         $con = pg_connect("host=jumbo.db.elephantsql.com port=5432 dbname=vvggesku user=vvggesku password=aSmF1ip7Fb_DltIN8C9EPT-hIY9apVd9") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+         $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
    
          $sql = "SELECT * FROM schedule_reporte_cierre($s->id)";
      

@@ -32,167 +32,9 @@ if (isset($_POST['hidden_actividad'])) {
 //    var_dump($accion);
 //    exit();
      
-    if ($accion == 'save') {
+    
 
-        if (isset($_SESSION['accion_actividad'])) {
-            if ($_SESSION['accion_actividad'] == 'editar') {
-              $id = $_POST['idactividad'];
-              $idturnob=$_POST['c_turno_tn'];  
-              $tipo= $_POST['c_tipo'];
-              $horaejec= $_POST['t_hora'];
-              $horatermino= $_POST['t_hora_ter'];
-              $interturno=$_POST['c_inter_turnos'];
-              $excepcion=$_POST['c_excepcion'];
-              $descripcion=trim(strtoupper($_POST['ta_descripcion']));
-              $horalimite=$_POST['t_hora_limite'];
-              $plataforma=$_POST['c_plataforma'];
-              $tws=$_POST['c_tws'];
-              $tipoproc = $_POST['c_tipo_proceso'];
-              $tiporesp=$_POST['c_tipo_respaldo'];
-              $comentario=trim(strtoupper($_POST['ta_comentario']));
-              $ventana=$_POST['t_ventana'];
-              $accion=trim(strtoupper($_POST['t_accion']));
-              $idperiodo=$_POST['c_periodo'];
-              $idsede=$_POST['c_sede'];      
-              $idturno=$_POST['c_turno'];
-              $idproced=$_POST['c_procedimiento'];
-              $idcliente=$_POST['c_cliente'];
-              $idservidor=$_POST['c_servidor'];
-              $subcategoria=$_POST['c_subcategoria'];
-              $idtipoact = $_POST['c_tipo_actividad'];
-              
-              $duracion= new Actividad();
-              $hora_dur=$duracion->RestarHoras($horaejec, $horatermino);
-                      
-            $Actividad = new Actividad();
-            $Actividad->setId($id);
-            $Actividad->setTipo($tipo);
-            $Actividad->setHoraejec($horaejec);
-            $Actividad->setHoratermino($horatermino);
-            $Actividad->setDuracion($hora_dur);
-            $Actividad->setInterturno($interturno);
-            $Actividad->setExcepcion($excepcion);
-            $Actividad->setDescripcion($descripcion);
-            $Actividad->setHoralimite($horalimite);
-            $Actividad->setPlataforma($plataforma);
-            $Actividad->setTws($tws);
-            $Actividad->setTiporespaldo($tiporesp);
-            $Actividad->setTipoproceso($tipoproc);
-            $Actividad->setComentario($comentario);
-            $Actividad->setVentana($ventana);
-            $Actividad->setAccion($accion);
-            $Actividad->setIdperiodo($idperiodo);
-            $Actividad->setIdsede($idsede);
-            $Actividad->setIdprocedimiento($idproced);
-            $Actividad->setIdcliente($idcliente);
-            $Actividad->setIdservidor($idservidor);
-            $Actividad->setIdcategoria($subcategoria);
-            $Actividad->setIdtipoact($idtipoact);
-            $resul=$Actividad->actualizar($Actividad);
-            
-            $ob_act_tur = new Actividad_Turno();
-            $ob_act_tur->setIdactividad($resul);
-            $ob_act_tur->setIdturno($idturno);
-            $valor = $ob_act_tur->actualizar($ob_act_tur);
-            
-            if($idturnob!=null){
-            $ob_act_tur = new Actividad_Turno();
-            $ob_act_tur->setIdactividad($resul);
-            $ob_act_tur->setIdturno($idturnob);
-            $valor = $ob_act_tur->actualizar($ob_act_tur);    
-            }
-            
-            if(!empty($_POST['check_list'])) {
-                    foreach($_POST['check_list'] as $selected) {
-                    $ob_actividad = new Actividad_Dia();
-                    
-                    $ob_actividad->setIdactividad($resul);
-                    $ob_actividad->setIddia($selected);                
-                    $valor = $ob_actividad->actualizar($ob_actividad);
-                    }
-                    }
-            header("location: ../../Vistas/MantenerActividad.php");
-            } else {
-              $idturnob=$_POST['c_turno_tn'];  
-              $tipo= $_POST['c_tipo'];
-              $horaejec= $_POST['t_hora'];
-              $horatermino= $_POST['t_hora_ter'];
-              $interturno=$_POST['c_inter_turnos'];
-              $excepcion=$_POST['c_excepcion'];
-              $descripcion=trim(strtoupper($_POST['ta_descripcion']));
-              $horalimite=$_POST['t_hora_limite'];
-              $plataforma=$_POST['c_plataforma'];
-              $tws=$_POST['c_tws'];
-              $tipoproc = $_POST['c_tipo_proceso'];
-              $tiporesp=$_POST['c_tipo_respaldo'];
-              $comentario=trim(strtoupper($_POST['ta_comentario']));
-              $ventana=$_POST['t_ventana'];
-              $accion=trim(strtoupper($_POST['t_accion']));
-              $idperiodo=$_POST['c_periodo'];
-              $idsede=$_POST['c_sede'];      
-              $idturno=$_POST['c_turno'];
-              $idproced=$_POST['c_procedimiento'];
-              $idcliente=$_POST['c_cliente'];
-              $idservidor=$_POST['c_servidor'];
-              $subcategoria=$_POST['c_subcategoria'];
-              $idtipoact = $_POST['c_tipo_actividad'];
-              
-              $duracion= new Actividad();
-              $hora_dur=$duracion->RestarHoras($horaejec, $horatermino);
-                      
-              
-                      
-                      
-            $Actividad = new Actividad();
-          
-            $Actividad->setTipo($tipo);
-            $Actividad->setHoraejec($horaejec);
-            $Actividad->setHoratermino($horatermino);
-            $Actividad->setDuracion($hora_dur);
-            $Actividad->setInterturno($interturno);
-            $Actividad->setExcepcion($excepcion);
-            $Actividad->setDescripcion($descripcion);
-            $Actividad->setHoralimite($horalimite);
-            $Actividad->setPlataforma($plataforma);
-            $Actividad->setTws($tws);
-            $Actividad->setTiporespaldo($tiporesp);
-            $Actividad->setTipoproceso($tipoproc);
-            $Actividad->setComentario($comentario);
-            $Actividad->setVentana($ventana);
-            $Actividad->setAccion($accion);
-            $Actividad->setIdperiodo($idperiodo);
-            $Actividad->setIdsede($idsede);
-            $Actividad->setIdprocedimiento($idproced);
-            $Actividad->setIdcliente($idcliente);
-            $Actividad->setIdservidor($idservidor);
-            $Actividad->setIdcategoria($subcategoria);
-            $Actividad->setIdtipoact($idtipoact);
-            $resul=$Actividad->grabar($Actividad);
-            
-            $ob_act_tur = new Actividad_Turno();
-            $ob_act_tur->setIdactividad($resul);
-            $ob_act_tur->setIdturno($idturno);
-            $valor = $ob_act_tur->grabar($ob_act_tur);
-            
-            if($idturnob!=null){
-            $ob_act_tur = new Actividad_Turno();
-            $ob_act_tur->setIdactividad($resul);
-            $ob_act_tur->setIdturno($idturnob);
-            $valor = $ob_act_tur->grabar($ob_act_tur);    
-            }
-            
-            if(!empty($_POST['check_list'])) {
-                    foreach($_POST['check_list'] as $selected) {
-                    $ob_actividad = new Actividad_Dia();
-                    
-                    $ob_actividad->setIdactividad($resul);
-                    $ob_actividad->setIddia($selected);                
-                    $valor = $ob_actividad->grabar($ob_actividad);
-                    }
-                    }
-            header("location: ../../Vistas/MantenerActividad.php");
-            }
-        } else {
+     if($accion=='registrar') {
         $idturnob=$_POST['c_turno_tn'];  
               $tipo= $_POST['c_tipo'];
               $horaejec= $_POST['t_hora'];
@@ -271,7 +113,90 @@ if (isset($_POST['hidden_actividad'])) {
                     }
             header("location: ../../Vistas/MantenerActividad.php");
         }
-    } 
+    
+    
+    
+    
+       else if($accion=='actualizar'){
+              $id = $_POST['idactividad'];
+              $idturnob=$_POST['c_turno_tn'];  
+              $tipo= $_POST['c_tipo'];
+              $horaejec= $_POST['t_hora'];
+              $horatermino= $_POST['t_hora_ter'];
+              $interturno=$_POST['c_inter_turnos'];
+              $excepcion=$_POST['c_excepcion'];
+              $descripcion=trim(strtoupper($_POST['ta_descripcion']));
+              $horalimite=$_POST['t_hora_limite'];
+              $plataforma=$_POST['c_plataforma'];
+              $tws=$_POST['c_tws'];
+              $tipoproc = $_POST['c_tipo_proceso'];
+              $tiporesp=$_POST['c_tipo_respaldo'];
+              $comentario=trim(strtoupper($_POST['ta_comentario']));
+              $ventana=$_POST['t_ventana'];
+              $accion=trim(strtoupper($_POST['t_accion']));
+              $idperiodo=$_POST['c_periodo'];
+              $idsede=$_POST['c_sede'];      
+              $idturno=$_POST['c_turno'];
+              $idproced=$_POST['c_procedimiento'];
+              $idcliente=$_POST['c_cliente'];
+              $idservidor=$_POST['c_servidor'];
+              $subcategoria=$_POST['c_subcategoria'];
+              $idtipoact = $_POST['c_tipo_actividad'];
+              
+              $duracion= new Actividad();
+              $hora_dur=$duracion->RestarHoras($horaejec, $horatermino);
+                      
+            $Actividad = new Actividad();
+            $Actividad->setId($id);
+            $Actividad->setTipo($tipo);
+            $Actividad->setHoraejec($horaejec);
+            $Actividad->setHoratermino($horatermino);
+            $Actividad->setDuracion($hora_dur);
+            $Actividad->setInterturno($interturno);
+            $Actividad->setExcepcion($excepcion);
+            $Actividad->setDescripcion($descripcion);
+            $Actividad->setHoralimite($horalimite);
+            $Actividad->setPlataforma($plataforma);
+            $Actividad->setTws($tws);
+            $Actividad->setTiporespaldo($tiporesp);
+            $Actividad->setTipoproceso($tipoproc);
+            $Actividad->setComentario($comentario);
+            $Actividad->setVentana($ventana);
+            $Actividad->setAccion($accion);
+            $Actividad->setIdperiodo($idperiodo);
+            $Actividad->setIdsede($idsede);
+            $Actividad->setIdprocedimiento($idproced);
+            $Actividad->setIdcliente($idcliente);
+            $Actividad->setIdservidor($idservidor);
+            $Actividad->setIdcategoria($subcategoria);
+            $Actividad->setIdtipoact($idtipoact);
+            $resul=$Actividad->actualizar($Actividad);
+            
+            $ob_act_tur = new Actividad_Turno();
+            $ob_act_tur->setIdactividad($resul);
+            $ob_act_tur->setIdturno($idturno);
+            $valor = $ob_act_tur->actualizar($ob_act_tur);
+            
+            if($idturnob!=null){
+            $ob_act_tur = new Actividad_Turno();
+            $ob_act_tur->setIdactividad($resul);
+            $ob_act_tur->setIdturno($idturnob);
+            $valor = $ob_act_tur->actualizar($ob_act_tur);    
+            }
+            
+            if(!empty($_POST['check_list'])) {
+                    foreach($_POST['check_list'] as $selected) {
+                    $ob_actividad = new Actividad_Dia();
+                    
+                    $ob_actividad->setIdactividad($resul);
+                    $ob_actividad->setIddia($selected);                
+                    $valor = $ob_actividad->actualizar($ob_actividad);
+                    }
+                    }
+            header("location: ../../Vistas/MantenerActividad.php");
+            }
+    
+    
     
          else if($accion=='buscar')
     {
@@ -462,6 +387,24 @@ if (isset($_POST['hidden_actividad'])) {
             LlenarComboTurno($arreglo,$arreglo2);
        
     }
+    else if ($accion == 'cargarTurnosPorSedeEdit') {
+        unset($_SESSION['arreglo_cargado_actividad']);
+
+        $id_sede = $_POST['hidden_sede'];
+        $id = $_POST['hidden_id'];
+        
+            $ob_turno = new Turno();
+            $ob_turno->setId($id_sede);
+            $arreglo = $ob_turno->listar($ob_turno);
+            $arreglo2 = $ob_turno->listar_tn($ob_turno);
+            $turno = new Actividad();
+            $turno->setId($id); 
+            $turnos = $turno->turno_por_actividad($turno); 
+//            var_dump($arreglo);
+//            exit();
+            LlenarComboTurnoEdit($arreglo,$arreglo2,$turnos);
+       
+    }
             else if ($accion == 'cargarTurnosPorAram') {
         unset($_SESSION['arreglo_cargado_actividad']);
 
@@ -474,6 +417,22 @@ if (isset($_POST['hidden_actividad'])) {
             LlenarComboTurnoAr($arreglo);
        
     }
+             else if ($accion == 'cargarTurnosPorAramEdit') {
+        unset($_SESSION['arreglo_cargado_actividad']);
+
+        $id_sede = $_POST['hidden_sede'];
+        $id = $_POST['hidden_id'];
+        
+            $ob_turno = new Turno();
+            $ob_turno->setId($id_sede);
+            $arreglo = $ob_turno->listar_aram($ob_turno);
+            $turno = new Actividad();
+            $turno->setId($id); 
+            $turnos = $turno->turno_por_actividad($turno); 
+            LlenarComboTurnoArEdit($arreglo,$turnos);
+       
+    }
+    
     
             else if ($accion == 'cargarSubcatPorCat') {
         unset($_SESSION['arreglo_cargado_actividad']);
@@ -485,6 +444,20 @@ if (isset($_POST['hidden_actividad'])) {
             $ob_subcat->setIdcat($id_cat);
             $arreglo = $ob_subcat->listar($ob_subcat);
             LlenarComboSubCat($arreglo);
+       
+    }
+                else if ($accion == 'cargarSubcatPorCatEdit') {
+        unset($_SESSION['arreglo_cargado_actividad']);
+
+        $id_cat = $_POST['hidden_cat'];
+        $subcat = $_POST['hidden_subcat'];
+        
+            $ob_subcat = new Subcategoria();
+            $ob_subcat->setIdcat($id_cat);
+            $arreglo = $ob_subcat->listar($ob_subcat);
+//            var_dump($arreglo);
+//            exit();
+            LlenarComboSubCatEdit($arreglo,$subcat);
        
     }
    
@@ -514,19 +487,7 @@ function LlenarComboTurno($datos,$datosb)
             $horafin = $d['turno_horafin'];
            ?> 
 
-        <option value="<?php echo $id?>" 
-            
-            <?php 
-//            foreach ($_SESSION['arreglo_turnos'] as $t) {
-                            if(isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad']=='editar' ){
-                                
-                                foreach ($_SESSION['arreglo_turnos'] as $t) {
-                                    if($t['sedeturno_idsedeturno']==$id){ echo 'selected';}
-                            }}
-//            }
-                        ?>
-                        
-                        ><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
+        <option value="<?php echo $id?>"><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
             <?php
         }
         echo "</select>";      
@@ -547,18 +508,7 @@ function LlenarComboTurno($datos,$datosb)
             $horain = $f['turno_horainicio'];
             $horafin = $f['turno_horafin'];
            ?>                                                                    
-        <option value="<?php echo $id?>" 
-            
-            <?php 
-//            
-                            if(isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad']=='editar' ){
-                                foreach ($_SESSION['arreglo_turnos'] as $t) {
-                                if($t['sedeturno_idsedeturno']==$id){ echo 'selected';}
-                            }}
-//            }
-                        ?>
-                        
-                        ><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
+        <option value="<?php echo $id?>"><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
             <?php
         }
         echo "</select>";      
@@ -567,7 +517,73 @@ function LlenarComboTurno($datos,$datosb)
     
     
 }
+function LlenarComboTurnoEdit($datos,$datosb,$turnos)
+{
+    if($datos!=null){
+     
+        echo "<div class='form-group'>";
+        echo "<label for='recipient-turno' class='control-label'>TURNO:</label>";
+        echo "<select class='form-control' style='width: 100%;' name='c_turno' id='id_turno'>";
+        echo "<option value='0'>--SELECCIONE--</option>";
+        
+        
+        foreach ($datos as $d) {   
+            $id = $d['sedeturno_idsedeturno'];
+            $nombre = $d['turno_nombre'];
+            $horain = $d['turno_horainicio'];
+            $horafin = $d['turno_horafin'];
+           ?> 
 
+        <option value="<?php echo $id?>" 
+            
+            <?php 
+
+                                foreach ($turnos as $t) {
+                                    if($t['sedeturno_idsedeturno']==$id){ echo 'selected';}
+                            }
+//            }
+                        ?>
+                        
+                        ><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
+            <?php
+        }
+        echo "</select>";      
+        echo "</div>";        
+    }
+    if($datosb!=null){
+     
+        echo "<div class='form-group'>";
+        echo "<label for='recipient-turno' class='control-label'>TURNO 2:</label>";       
+        echo "<select class='form-control'  style='width: 100%;' name='c_turno_tn' id='id_turno_tn'>";
+        echo "<option value='0'>--SELECCIONE--</option>";
+       
+        foreach ($datosb as $f) {   
+            
+            $id = $f['sedeturno_idsedeturno'];
+            $nombre = $f['turno_nombre'];
+            $horain = $f['turno_horainicio'];
+            $horafin = $f['turno_horafin'];
+           ?>                                                                    
+        <option value="<?php echo $id?>" 
+            
+            <?php 
+//            
+                    
+                                foreach ($turnos as $t) {
+                                if($t['sedeturno_idsedeturno']==$id){ echo 'selected';}
+                            }
+//            }
+                        ?>
+                        
+                        ><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
+            <?php
+        }
+        echo "</select>";      
+        echo "</div>";        
+    }
+    
+    
+}
 function LlenarComboTurnoAr($datos)
 {
     if($datos!=null){
@@ -584,14 +600,36 @@ function LlenarComboTurnoAr($datos)
             $horain = $d['turno_horainicio'];
             $horafin = $d['turno_horafin'];
            ?>                                                                    
+        <option value="<?php echo $id?>"><?php echo $nombre.' ('.$horain.' a '.$horafin.')'; ?></option>
+            <?php
+        }
+        echo "</select>";      
+        echo "</div> </div>";        
+    }   
+}
+function LlenarComboTurnoArEdit($datos,$turnos)
+{
+    if($datos!=null){
+     
+        echo "<div class='form-group'>";
+        echo "<label for='recipient-turno' class='control-label'>TURNO:</label>";      
+        echo "<select class='form-control' style='width: 100%;' name='c_turno' id='id_turnoar'>";
+        echo "<option value='0'>--SELECCIONE--</option>";
+        
+        foreach ($datos as $d) {   
+            $id = $d['sedeturno_idsedeturno'];
+            $nombre = $d['turno_nombre'];
+            $horain = $d['turno_horainicio'];
+            $horafin = $d['turno_horafin'];
+           ?>                                                                    
         <option value="<?php echo $id?>" 
             
             <?php 
 //            foreach ($_SESSION['arreglo_turnos'] as $t) {
-                            if(isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad']=='editar' ){
-                                foreach ($_SESSION['arreglo_turnos'] as $t) {
+                            
+                                foreach ($turnos as $t) {
                                if($t['sedeturno_idsedeturno']==$id){ echo 'selected';}
-                            }}
+                            }
 //            }
                         ?>
                         
@@ -599,7 +637,7 @@ function LlenarComboTurnoAr($datos)
             <?php
         }
         echo "</select>";      
-        echo "</div> </div>";        
+        echo "</div>";        
     }   
 }
 function LlenarComboSubCat($datos)
@@ -615,18 +653,38 @@ function LlenarComboSubCat($datos)
             $id = $d['subcategoria_idsubcategoria'];
             $nombre = $d['subcategoria_nombre'];
            ?>                                                                    
+        <option value="<?php echo $id?>"><?php echo $nombre; ?></option>
+            <?php
+        }
+        echo "</select>";      
+        echo "</div> </div>";        
+    }
+}
+
+function LlenarComboSubCatEdit($datos,$subcat)
+{
+    if($datos!=null){
+     
+        echo "<div class='form-group'>";
+        echo "<label for='recipient-turno' class='control-label'>SUBCATEGORIA:</label>";
+        echo "<select class='form-control' style='width: 100%;' name='c_subcategoria' id='id_subcategoria' required>";
+        echo "<option>--SELECCIONE--</option>";
+        foreach ($datos as $d) {   
+            $id = $d['subcategoria_idsubcategoria'];
+            $nombre = $d['subcategoria_nombre'];
+           ?>                                                                    
         <option value="<?php echo $id?>" 
             
             <?php 
-                            if(isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad']=='editar' ){
-                                if($_SESSION['subcategoria_idsubcategoria']==$id){ echo 'selected';}
-                            }
+                            
+                                if($subcat==$id){ echo 'selected';}
+                            
                         ?>
                         
                         ><?php echo $nombre; ?></option>
             <?php
         }
         echo "</select>";      
-        echo "</div> </div>";        
+        echo "</div>";        
     }
 }

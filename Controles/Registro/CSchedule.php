@@ -49,12 +49,13 @@ if (isset($_POST['hidden_schedule'])) {
              
               $turno1= $_SESSION['id_turno'];  
               $turno2= $_SESSION['id_turnob'];  
-              
+//              var_dump($turno1);
+//              exit();
              
               
-              if($turno1==''){
+              if($turno1=='0'){
                   $turnofin = $turno2;
-              }else if($turno1!='') {
+              }else if($turno1!='0') {
                   $turnofin = $turno1;
               }   
 //               var_dump($turnofin);
@@ -596,12 +597,9 @@ if (isset($_POST['hidden_schedule'])) {
             LlenarComboTurno($arreglo,$arreglo2);
        
     }
-                else if ($accion == 'cargarTurnosPorAram') {
+       else if ($accion == 'cargarTurnosPorAram') {
         unset($_SESSION['arreglo_cargado_schedule']);
-
-        $id_sede = $_POST['hidden_sede'];
-
-        
+        $id_sede = $_POST['hidden_sede'];        
             $ob_turno = new Turno();
             $ob_turno->setId($id_sede);
             $arreglo = $ob_turno->listar_aram($ob_turno);

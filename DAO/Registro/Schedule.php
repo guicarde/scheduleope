@@ -534,8 +534,8 @@ function setDescripcion($descripcion) {
     {
          $con = Conectar();
          $sql = "SELECT * FROM actividad_por_schedule_usu_ventana_max($s->id)";
-         var_dump($sql);
-         exit();
+//         var_dump($sql);
+//         exit();
          $res = pg_query($con,$sql);
          $array=null;
          

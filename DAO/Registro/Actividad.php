@@ -284,8 +284,8 @@ function setIddia($iddia) {
         
         $con =  Conectar();
         $sql = "SELECT * FROM actividad_insertar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->idtipoact)";
-        //var_dump($sql);
-        //exit();       
+//        var_dump($sql);
+//        exit();       
         $res = pg_query($con,$sql);
         $val = pg_fetch_result($res,0,0);
         if($val=='0'){
@@ -301,8 +301,8 @@ function setIddia($iddia) {
         
         $con =  Conectar();
         $sql = "SELECT * FROM actividad_editar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->id,$a->idtipoact)";
-    //    var_dump($sql);
-    //    exit();       
+//        var_dump($sql);
+//        exit();       
         $res = pg_query($con,$sql);
         $val = pg_fetch_result($res,0,0);
         if($val=='0'){
@@ -317,7 +317,7 @@ function setIddia($iddia) {
      function listar(){
        
         $con = Conectar();
-        $sql = "SELECT * FROM actividad_listar()";
+        $sql = "SELECT * FROM actividad_listar_p()";
         $res = pg_query($con,$sql);
         $array=null;
         while($fila = pg_fetch_assoc($res))
@@ -375,7 +375,7 @@ function setIddia($iddia) {
           function buscar(Actividad $a)
     {
          $con = Conectar();
-         $sql = "SELECT * FROM actividad_buscar($a->idperiodo,$a->idcliente,'$a->estado','$a->fechareg','%$a->descripcion%',$a->idservidor,$a->idprocedimiento,$a->idturno,$a->iddia)";
+         $sql = "SELECT * FROM actividad_buscar_p($a->idperiodo,$a->idcliente,'$a->estado','$a->fechareg','%$a->descripcion%',$a->idservidor,$a->idprocedimiento,$a->idturno,$a->iddia)";
 //         var_dump($sql);
 //         exit();   
          $res = pg_query($con,$sql);
@@ -501,6 +501,8 @@ function buscarPorId(Actividad $a){
        
         $con = Conectar();
         $sql = "SELECT * FROM turno_por_actividad($a->id)";
+//        var_dump($sql);
+//        exit();
         $res = pg_query($con,$sql);
         $array=null;
         while($fila = pg_fetch_assoc($res))

@@ -99,6 +99,8 @@ function setIdactividad($idactividad) {
        
         $con = Conectar();
         $sql = "SELECT * FROM listar_turnos_por_sede($t->id)";
+//        var_dump($sql);
+//        exit();
         $res = pg_query($con,$sql);
         $array=null;
         while($fila = pg_fetch_assoc($res))

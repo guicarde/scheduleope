@@ -12,11 +12,18 @@ include_once '../DAO/Registro/Servidor.php';
 include_once '../DAO/Registro/Procedimiento.php';
 include_once '../DAO/Registro/Turno.php';
 include_once '../DAO/Registro/Dia.php';
-//include_once '../DAO/Registro/Periodo.php';
+include_once '../DAO/Registro/Categoria.php';
+include_once '../DAO/Registro/Actividad_Dia.php';
+include_once '../DAO/Registro/Periodo.php';
 
+$categoria = new Categoria();
+$categorias = $categoria->listar();
 
 $dia = new Dia();
 $dias = $dia->listar();
+
+$dia2 = new Dia();
+$dias2 = $dia2->listar();
 
 $privilegios = $_SESSION['array_menus'];
 $servidor = new Servidor();
@@ -35,19 +42,19 @@ $procedimientos = $procedimiento->listar_act();
 $cliente = new Cliente();
 $clientes = $cliente->listar_act();
 
-$actividad = new Actividad();
+$tipoactividad = new Actividad();
+$tiposact = $tipoactividad->listar_tipo_actividad();
 
 if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '') {
 
     if ($_SESSION['accion_actividad'] == 'busqueda') {
         $actividades = $_SESSION['arreglo_buscado_actividad'];
     } else {
-        $actividades = $actividad->listar();
+        $actividades = null;
     }
 } else {
-    $actividades = $actividad->listar();
+    $actividades = null;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,8 +77,9 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <link href="../Recursos/../Recursos/assets/css/style.css" rel="stylesheet">
         <link href="../Recursos/css/StyleGeneral.css" rel="stylesheet">
         <link href="../Recursos/../Recursos/assets/css/style-responsive.css" rel="stylesheet">
-<!--        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">-->
+        <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
+        <!--        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+                <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">-->
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -86,167 +94,167 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
             <!-- **********************************************************************************************************************************************************
             TOP BAR CONTENT & NOTIFICATIONS
             *********************************************************************************************************************************************************** -->
-<?php require 'Cabecera.php' ?>
+            <?php require 'Cabecera.php' ?>
             <!--sidebar start-->
             <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              <p class="centered"><a href="profile.html"><img src="../Controles/Registro/Fotos/<?php echo $_SESSION['foto']; ?>" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['user_personal'] ?></h5>              	  
-                  <li class="mt">
-                      <a href="index.php">
-                          <i class="fa fa-dashboard"></i>
-                          <span>Resumen</span>
-                      </a>
-                  </li>
-                 
-                  <?php if ($privilegios != null) { ?>
-                   <?php foreach ($privilegios as $p) {    ?>
-                  
-                  <?php if ($p['menu_idmenu']==1) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>Usuarios</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="GuardarUsuario.php">Registrar Usuario</a></li>
-                          <li><a  href="MantenerUsuario.php">Administrar Usuarios</a></li>
-                          <li><a  href="AsignarPrivilegios.php">Asignar Privilegios</a></li>
-                          <li><a  href="MantenerPrivilegios.php">Administrar Privilegios</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>
-                  <?php if ($p['menu_idmenu']==2) {?>
-                  <li class="sub-menu">
-                      <a class="active" href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>Actividad</span>
-                      </a>
-                      <ul class="sub">
-                          <li class="active"><a  href="MantenerActividad.php">Consultar Actividades</a></li>
-                          <li><a  href="GuardarActividad.php">Registrar Actividad</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>
-                  <?php if ($p['menu_idmenu']==3) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-calendar"></i>
-                          <span>Periodo</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="MantenerPeriodo.php">Consultar Periodos</a></li>
-                          <li><a  href="GuardarPeriodo.php">Registrar Periodo</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>
-                  <?php if ($p['menu_idmenu']==4) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-barcode"></i>
-                          <span>Procedimiento</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="MantenerProcedimiento.php">Consultar Procedimientos</a></li>
-                          <li><a  href="GuardarProcedimiento.php">Registrar Procedimiento</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>
-                   <?php if ($p['menu_idmenu']==5) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-bookmark"></i>
-                          <span>Shedule</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="MantenerSchedule.php">Consultar Schedule</a></li>
-                          <li><a  href="GenerarSchedule.php">Generar Schedule</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>  
-                  <?php if ($p['menu_idmenu']==6) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-money"></i>
-                          <span>Cliente</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="MantenerCliente.php">Consultar Clientes</a></li>
-                          <li><a  href="GuardarCliente.php">Registrar Cliente</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?> 
-                  <?php if ($p['menu_idmenu']==7) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-fax"></i>
-                          <span>Servidor</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="MantenerServidor.php">Consultar Servidores</a></li>
-                          <li><a  href="GuardarServidor.php">Registrar Servidor</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?> 
-                   <?php if ($p['menu_idmenu']==8) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-fax"></i>
-                          <span>Ejecutar Schedule</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="SeleccionarSchedule.php">Seleccionar Schedule</a></li>
-                          <li><a  href="MisSchedules.php">Mis Schedules</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>  
-                 <?php if ($p['menu_idmenu']==9) {?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-file-excel-o"></i>
-                          <span>Subir Excel</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="GuardarExcel.php">Guardar EXCEL</a></li>
-                      </ul>
-                  </li>
-                  <?php } ?>  
-                  
-                   <?php } ?>
-                  <?php } ?>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-clock-o"></i>
-                          <span>Tareas Pendientes</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
-                      </ul>
-                  </li>
-                       <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-warning"></i>
-                          <span>Cambiar Contraseña</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="CambiarContrasenia.php">Cambiar Contraseña</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-lock"></i>
-                          <span>Bloquear Sistema</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="lock_screen.php">Bloquear Sistema</a></li>
-                      </ul>
-                  </li>
-                  </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
+                <div id="sidebar"  class="nav-collapse ">
+                    <!-- sidebar menu start-->
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <p class="centered"><a href="profile.html"><img src="../Controles/Registro/Fotos/<?php echo $_SESSION['foto']; ?>" class="img-circle" width="60"></a></p>
+                        <h5 class="centered"><?php echo $_SESSION['user_personal'] ?></h5>              	  
+                        <li class="mt">
+                            <a href="index.php">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Resumen</span>
+                            </a>
+                        </li>
+
+                        <?php if ($privilegios != null) { ?>
+                            <?php foreach ($privilegios as $p) { ?>
+
+                                <?php if ($p['menu_idmenu'] == 1) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-users"></i>
+                                            <span>Usuarios</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="GuardarUsuario.php">Registrar Usuario</a></li>
+                                            <li><a  href="MantenerUsuario.php">Administrar Usuarios</a></li>
+                                            <li><a  href="AsignarPrivilegios.php">Asignar Privilegios</a></li>
+                                            <li><a  href="MantenerPrivilegios.php">Administrar Privilegios</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($p['menu_idmenu'] == 2) { ?>
+                                    <li class="sub-menu">
+                                        <a class="active" href="javascript:;" >
+                                            <i class="fa fa-tasks"></i>
+                                            <span>Actividad</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li class="active"><a  href="MantenerActividad.php">Consultar Actividades</a></li>
+                                            <li><a  href="GuardarActividad.php">Registrar Actividad</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($p['menu_idmenu'] == 3) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-calendar"></i>
+                                            <span>Periodo</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="MantenerPeriodo.php">Consultar Periodos</a></li>
+                                            <li><a  href="GuardarPeriodo.php">Registrar Periodo</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($p['menu_idmenu'] == 4) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-barcode"></i>
+                                            <span>Procedimiento</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="MantenerProcedimiento.php">Consultar Procedimientos</a></li>
+                                            <li><a  href="GuardarProcedimiento.php">Registrar Procedimiento</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+                                <?php if ($p['menu_idmenu'] == 5) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-bookmark"></i>
+                                            <span>Shedule</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="MantenerSchedule.php">Consultar Schedule</a></li>
+                                            <li><a  href="GenerarSchedule.php">Generar Schedule</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>  
+                                <?php if ($p['menu_idmenu'] == 6) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-money"></i>
+                                            <span>Cliente</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="MantenerCliente.php">Consultar Clientes</a></li>
+                                            <li><a  href="GuardarCliente.php">Registrar Cliente</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?> 
+                                <?php if ($p['menu_idmenu'] == 7) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-fax"></i>
+                                            <span>Servidor</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="MantenerServidor.php">Consultar Servidores</a></li>
+                                            <li><a  href="GuardarServidor.php">Registrar Servidor</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?> 
+                                <?php if ($p['menu_idmenu'] == 8) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-fax"></i>
+                                            <span>Ejecutar Schedule</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="SeleccionarSchedule.php">Seleccionar Schedule</a></li>
+                                            <li><a  href="MisSchedules.php">Mis Schedules</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>  
+                                <?php if ($p['menu_idmenu'] == 9) { ?>
+                                    <li class="sub-menu">
+                                        <a href="javascript:;" >
+                                            <i class="fa fa-file-excel-o"></i>
+                                            <span>Subir Excel</span>
+                                        </a>
+                                        <ul class="sub">
+                                            <li><a  href="GuardarExcel.php">Guardar EXCEL</a></li>
+                                        </ul>
+                                    </li>
+                                <?php } ?>  
+
+                            <?php } ?>
+                        <?php } ?>
+                        <li class="sub-menu">
+                            <a href="javascript:;" >
+                                <i class="fa fa-clock-o"></i>
+                                <span>Tareas Pendientes</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;" >
+                                <i class="fa fa-warning"></i>
+                                <span>Cambiar Contraseña</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a  href="CambiarContrasenia.php">Cambiar Contraseña</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;" >
+                                <i class="fa fa-lock"></i>
+                                <span>Bloquear Sistema</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a  href="lock_screen.php">Bloquear Sistema</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
             <!--sidebar end-->
 
             <!-- **********************************************************************************************************************************************************
@@ -266,70 +274,70 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <h4 class="mb"><i class="fa fa-angle-right"></i> OPCIONES DE BUSQUEDA</h4>
 
                                     <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">SEDE</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control" name="c_sede" id="id_sede_sc" onchange="cargarTurnosPorSedeSc();">
+                                        <label class="col-sm-2 col-sm-2 control-label">SEDE</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_sede" id="id_sede_sc" onchange="cargarTurnosPorSedeSc();">
 
-                                            <option value="0">--SELECCIONE--</option>
-                                                                        <?php foreach ($sedes as $s) {   
-                                                                          ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($sedes as $s) {
+                                                    ?>
 
-                                                                          <option value="<?php echo $s['sede_idsede']; ?>"><?php echo $s['sede_nombre']; ?></option>
-                                                                      <?php } ?>
+                                                    <option value="<?php echo $s['sede_idsede']; ?>"><?php echo $s['sede_nombre']; ?></option>
+                                                <?php } ?>
 
-                                                      </select>
+                                            </select>
+                                        </div>
                                     </div>
-                          </div>
-                          <div id="divTurnosSc">
-                              
-                          </div>
-                                    
-                          <div class="form-group">
+                                    <div id="divTurnosSc">
+
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">DIA</label>
-                                          <div class="col-sm-10">
-                                              <select class="form-control" name="c_dia" id="id_cliente">
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_dia" id="id_cliente">
 
-                                                      <option value="0">--SELECCIONE--</option>
-                                                                                  <?php foreach ($dias as $d) {   
-                                                                                    ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($dias as $d) {
+                                                    ?>
 
-                                                                                    <option value="<?php echo $d['dia_iddia']; ?>"><?php echo $d['dia_nombre']; ?></option>
-                                                                                <?php } ?>
+                                                    <option value="<?php echo $d['dia_iddia']; ?>"><?php echo $d['dia_nombre']; ?></option>
+                                                <?php } ?>
 
-                                                  </select>
-                                              </div>
+                                            </select>
+                                        </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">PERIODO</label>
-                                          <div class="col-sm-10">
-                                                  <select class="form-control" name="c_periodo" id="id_periodo">
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_periodo" id="id_periodo">
 
-                                                      <option value="0">--SELECCIONE--</option>
-                                                                                  <?php foreach ($periodos as $p) {   
-                                                                                    ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($periodos as $p) {
+                                                    ?>
 
-                                                                                    <option value="<?php echo $p['periodo_idperiodo']; ?>"><?php echo $p['periodo_nombre']; ?></option>
-                                                                                <?php } ?>
+                                                    <option value="<?php echo $p['periodo_idperiodo']; ?>"><?php echo $p['periodo_nombre']; ?></option>
+                                                <?php } ?>
 
-                                                                </select>
-                                              </div>
+                                            </select>
+                                        </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">CLIENTE</label>
-                                          <div class="col-sm-10">
-                                                  <select class="form-control" name="c_cliente" id="id_cliente" required>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_cliente" id="id_cliente" required>
 
-                                                      <option value="0">--SELECCIONE--</option>
-                                                                                  <?php foreach ($clientes as $c) {   
-                                                                                    ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($clientes as $c) {
+                                                    ?>
 
-                                                                                    <option value="<?php echo $c['cliente_idcliente']; ?>"><?php echo $c['cliente_nombre']; ?></option>
-                                                                                <?php } ?>
+                                                    <option value="<?php echo $c['cliente_idcliente']; ?>"><?php echo $c['cliente_nombre']; ?></option>
+                                                <?php } ?>
 
-                                                                </select>
-                                              </div>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">DESCRIPCIÓN</label>
@@ -338,34 +346,34 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">SERVIDOR (HOSTNAME)</label>
-                                      <div class="col-sm-10">
-                                              <select class="form-control" name="c_servidor" id="id_servidor" >
+                                        <label class="col-sm-2 col-sm-2 control-label">SERVIDOR (HOSTNAME)</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_servidor" id="id_servidor" >
 
-                                                  <option value="0">--SELECCIONE--</option>
-                                                                              <?php foreach ($servidores as $s) {   
-                                                                                ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($servidores as $s) {
+                                                    ?>
 
-                                                                                <option value="<?php echo $s['servidor_idservidor']; ?>"><?php echo $s['servidor_hostname'].' ('.$s['servidor_ip'].') '; ?></option>
-                                                                            <?php } ?>
+                                                    <option value="<?php echo $s['servidor_idservidor']; ?>"><?php echo $s['servidor_hostname'] . ' (' . $s['servidor_ip'] . ') '; ?></option>
+                                                <?php } ?>
 
-                                                            </select>
-                                          </div>
-                                   </div>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">PROCEDIMIENTOS</label>
-                                          <div class="col-sm-10">
-                                                  <select class="form-control" name="c_procedimiento" id="id_procedimiento" >
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_procedimiento" id="id_procedimiento" >
 
-                                                      <option value="0">--SELECCIONE--</option>
-                                                                                  <?php foreach ($procedimientos as $p) {   
-                                                                                    ?>
+                                                <option value="0">--SELECCIONE--</option>
+                                                <?php foreach ($procedimientos as $p) {
+                                                    ?>
 
-                                                                                    <option value="<?php echo $p['procedimiento_idprocedimiento']; ?>"><?php echo $p['procedimiento_nombre']; ?></option>
-                                                                                <?php } ?>
+                                                    <option value="<?php echo $p['procedimiento_idprocedimiento']; ?>"><?php echo $p['procedimiento_nombre']; ?></option>
+                                                <?php } ?>
 
-                                                                </select>
-                                              </div>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">ESTADO ACTIVIDAD</label>
@@ -403,126 +411,417 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                             <div class="content-panel">
                                 <table id="example1" class="table table-responsive table-advance table-hover">
                                     <h4><i class="fa fa-angle-right"></i> RESULTADO DE BUSQUEDA DE ACTIVIDADES</h4>
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;TAREAS POR TWS
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;TAREAS POR TWS
                                     <hr>
 
-<?php if ($actividades != null) { ?>
+                                    <?php if ($actividades != null) { ?>
                                         <thead>
                                             <tr style="font-size:6pt;font-weight: bold;">
                                                 <th width="5%"><i></i> N</th>
                                                 <th width="5%"><i></i> HORA EJECUCIÓN</th>   
                                                 <th width="5%"><i></i> HORA TERMINO</th>
-<!--                                                <th><i></i> DURACIÓN</th>-->
-<!--                                                <th><i></i> INTER TURNO</th>-->
+    <!--                                                <th><i></i> DURACIÓN</th>-->
+    <!--                                                <th><i></i> INTER TURNO</th>-->
                                                 <th width="25%"><i></i> DESCRIPCIÓN</th>
                                                 <th width="5%"><i></i> DÍAS</th>
                                                 <th width="5%"><i></i> HOLA LIMITE</th>
-<!--                                                <th><i></i> PLATAFORMA</th>
+    <!--                                                <th><i></i> PLATAFORMA</th>
                                                 <th><i></i> T. RESPALDO</th>-->
                                                 <th width="10%"><i></i> PERIODO</th>
                                                 <th width="10%"><i></i> PROCEDIMIENTO</th>
                                                 <th width="10%"><i></i> CLIENTE</th>
                                                 <th width="14%"><i></i> SERVIDOR</th>
-<!--                                                <th><i></i> CATEGORIA</th>
+    <!--                                                <th><i></i> CATEGORIA</th>
                                                 <th><i></i> SUBCATEGORIA</th>-->
-<!--                                                <th><i></i> FECHA DE REGISTRO</th>-->
+    <!--                                                <th><i></i> FECHA DE REGISTRO</th>-->
                                                 <th width="3%"><i></i></th>
                                                 <th width="3%"><i></i></th>
                                                 <th width="3%"><i></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-    <?php
-    $num = 1;
-    foreach ($actividades as $r) {
-        ?>
-                                                <tr style="font-size:8pt;" <?php if($r['actividad_tws']=='1')echo 'bgcolor="68FF7E"';?>>
-                                                    <td style="font-size:5pt;" width="5%"><?php echo $num;
-                                        $num++; ?></td>
+                                            <?php
+                                            $num = 1;
+                                            foreach ($actividades as $r) {
+                                                ?>
+                                                <tr style="font-size:8pt;" <?php if ($r['actividad_tws'] == '1') echo 'bgcolor="68FF7E"'; ?>>
+                                                    <td style="font-size:5pt;" width="5%"><?php
+                                                        echo $num;
+                                                        $num++;
+                                                        ?></td>
                                                     <td style="font-size:5pt;" width="5%"><?php echo $r['actividad_horaejecucion'] ?></td>
                                                     <td style="font-size:5pt;" width="5%"><?php echo $r['actividad_horatermino'] ?></td>
-<!--                                                    <td><?php echo $r['actividad_duracion'] ?></td>-->
-<!--                                                    <td><?php if ($r['actividad_interturno'] == '1'){ echo 'SI';} ?>
-                                                        <?php if ($r['actividad_interturno'] == '2'){ echo 'NO';} ?>
+        <!--                                                    <td><?php echo $r['actividad_duracion'] ?></td>-->
+        <!--                                                    <td><?php
+                                                    if ($r['actividad_interturno'] == '1') {
+                                                        echo 'SI';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_interturno'] == '2') {
+                                                        echo 'NO';
+                                                    }
+                                                    ?>
                                                     </td>-->
                                                     <td style="color:black;font-weight:bold;" width="25%"><?php echo $r['actividad_descripcion'] ?></td>
                                                     <td width="5%">
-                                                    <?php
-                                                        $dia= new Actividad_Dia();
+                                                        <?php
+                                                        $dia = new Actividad_Dia();
                                                         $dia->setIdactividad($r['actividad_idactividad']);
-                                                        $dias= $dia->dias_por_actividad($dia);
-                                                         ?>
+                                                        $dias = $dia->dias_por_actividad($dia);
+                                                        ?>
                                                         <?php if ($dias != null) { ?>
-                                                        <?php foreach ($dias as $d) {   
+                                                            <?php foreach ($dias as $d) {
+                                                                ?>
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" id="inlineCheckbox<?php echo $d['dia_iddia']; ?>" name="check_list[]" checked disabled value="<?php echo $d['dia_iddia']; ?>"> <?php
+                                                                    if ($d['dia_iddia'] == '1') {
+                                                                        echo "LUNES";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '2') {
+                                                                        echo "MARTES";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '3') {
+                                                                        echo "MIERCOLES";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '4') {
+                                                                        echo "JUEVES";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '5') {
+                                                                        echo "VIERNES";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '6') {
+                                                                        echo "SABADO";
+                                                                    }
+                                                                    if ($d['dia_iddia'] == '7') {
+                                                                        echo "DOMINGO";
+                                                                    }
                                                                     ?>
-                                                        <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox<?php echo $d['dia_iddia']; ?>" name="check_list[]" checked disabled value="<?php echo $d['dia_iddia']; ?>"> <?php if($d['dia_iddia']=='1'){echo "LUNES";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='2'){echo "MARTES";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='3'){echo "MIERCOLES";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='4'){echo "JUEVES";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='5'){echo "VIERNES";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='6'){echo "SABADO";}
-                                                                                                                                                                                                                    if($d['dia_iddia']=='7'){echo "DOMINGO";}?>
-                                                        </label><br>
-                                                         <?php } ?>
-                                                        <?php } else {?>
-                                                        <div class="alert alert-danger"><i class="fa fa-warning"></i><b> Advertencia!</b><br>Aún No se han asignado<br>Días para ejecución de <br>esta tarea..!</div> 
+                                                                </label><br>
+                                                            <?php } ?>
+                                                        <?php } else { ?>
+                                                            <div class="alert alert-danger"><i class="fa fa-warning"></i><b> Advertencia!</b><br>Aún No se han asignado<br>Días para ejecución de <br>esta tarea..!</div> 
                                                         <?php } ?>
                                                     </td>
                                                     <td style="font-size:5pt;" width="5%"><?php echo $r['actividad_horalimite'] ?></td>
-<!--                                                    <td><?php if ($r['actividad_plataforma'] == '1'){ echo 'BCRS';} ?>
-                                                        <?php if ($r['actividad_plataforma'] == '2'){ echo 'SYSTEM I';} ?>
-                                                        <?php if ($r['actividad_plataforma'] == '3'){ echo 'SYSTEM P';} ?>
-                                                        <?php if ($r['actividad_plataforma'] == '4'){ echo 'SYSTEM X';} ?>
+        <!--                                                    <td><?php
+                                                    if ($r['actividad_plataforma'] == '1') {
+                                                        echo 'BCRS';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_plataforma'] == '2') {
+                                                        echo 'SYSTEM I';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_plataforma'] == '3') {
+                                                        echo 'SYSTEM P';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_plataforma'] == '4') {
+                                                        echo 'SYSTEM X';
+                                                    }
+                                                    ?>
                                                     </td>
-                                                    <td><?php if ($r['actividad_tiporespaldo'] == '1'){ echo 'OFFLINE';} ?>
-                                                        <?php if ($r['actividad_tiporespaldo'] == '2'){ echo 'ONLINE';} ?>
-                                                        <?php if ($r['actividad_tiporespaldo'] == '3'){ echo 'N.A';} ?>
+                                                    <td><?php
+                                                    if ($r['actividad_tiporespaldo'] == '1') {
+                                                        echo 'OFFLINE';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_tiporespaldo'] == '2') {
+                                                        echo 'ONLINE';
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($r['actividad_tiporespaldo'] == '3') {
+                                                        echo 'N.A';
+                                                    }
+                                                    ?>
                                                     </td>-->
-                                                    
+
                                                     <td style="font-size:6pt;" width="10%"><?php echo $r['periodo_nombre'] ?></td>
-                                                    <td style="font-size:6pt;" width="10%"><a href="../Controles/Registro/Procedimientos/<?php echo $r['procedimiento_archivo']?>" target="_new"><?php echo $r['procedimiento_nombre'] ?></a></td>
+                                                    <td style="font-size:6pt;" width="10%"><a href="../Controles/Registro/Procedimientos/<?php echo $r['procedimiento_archivo'] ?>" target="_new"><?php echo $r['procedimiento_nombre'] ?></a></td>
                                                     <td style="font-size:6pt;" width="10%"><?php echo $r['cliente_nombre'] ?></td>
-                                                    <td style="font-size:6pt;" width="14%"><?php echo $r['servidor_hostname'].' ('.$r['servidor_ip'].')' ?></td>
-<!--                                                    <td><?php echo $r['categoria_nombre'] ?></td>
+                                                    <td style="font-size:6pt;" width="14%"><?php echo $r['servidor_hostname'] . ' (' . $r['servidor_ip'] . ')' ?></td>
+        <!--                                                    <td><?php echo $r['categoria_nombre'] ?></td>
                                                     <td><?php echo $r['subcategoria_nombre'] ?></td>-->
-<!--                                                    <td><?php echo $r['actividad_fecharegistro'] ?></td>-->
+        <!--                                                    <td><?php echo $r['actividad_fecharegistro'] ?></td>-->
                                                     <td style="font-size:6pt;" width="3%">
                                                         <div id="estado_<?php echo $r['actividad_idactividad'] ?>">
-                                                         <?php if($r['actividad_estado'] == '1') { ?>
-                                                            <input type="hidden" name="id_hidden_eliminar" id="id_hidden_eliminar<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
-<!--                                                            <input type="hidden" name="hidden_actividad" value="anular">-->
-                                                            <input type="hidden" name="hidden_estado" id="hidden_estado<?php echo $r['actividad_idactividad'] ?>" value="activo">
-                                                            <button type="button" class="btn btn-success btn-xs" onclick="cambiarestado('<?php echo $r['actividad_idactividad'] ?>');" title="Desactivar"><i class="fa fa-check"></i></button>
-                                                          <?php } else { ?>  
-                                                             <input type="hidden" name="id_hidden_eliminar" id="id_hidden_eliminar<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
-<!--                                                            <input type="hidden" name="hidden_actividad" value="anular">-->
-                                                            <input type="hidden" name="hidden_estado" id="hidden_estado<?php echo $r['actividad_idactividad'] ?>" value="inactivo">
-                                                            <button type="button" class="btn btn-danger btn-xs" onclick="cambiarestado('<?php echo $r['actividad_idactividad'] ?>');" title="Activar"><i class="fa fa-warning"></i></button>
-                                                          <?php } ?>
+                                                            <?php if ($r['actividad_estado'] == '1') { ?>
+                                                                <input type="hidden" name="id_hidden_eliminar" id="id_hidden_eliminar<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
+            <!--                                                            <input type="hidden" name="hidden_actividad" value="anular">-->
+                                                                <input type="hidden" name="hidden_estado" id="hidden_estado<?php echo $r['actividad_idactividad'] ?>" value="activo">
+                                                                <button type="button" class="btn btn-success btn-xs" onclick="cambiarestado('<?php echo $r['actividad_idactividad'] ?>');" title="Desactivar"><i class="fa fa-check"></i></button>
+                                                            <?php } else { ?>  
+                                                                <input type="hidden" name="id_hidden_eliminar" id="id_hidden_eliminar<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
+            <!--                                                            <input type="hidden" name="hidden_actividad" value="anular">-->
+                                                                <input type="hidden" name="hidden_estado" id="hidden_estado<?php echo $r['actividad_idactividad'] ?>" value="inactivo">
+                                                                <button type="button" class="btn btn-danger btn-xs" onclick="cambiarestado('<?php echo $r['actividad_idactividad'] ?>');" title="Activar"><i class="fa fa-warning"></i></button>
+                                                            <?php } ?>
                                                         </div>
-                                                        
+
                                                     </td>
                                                     <td style="font-size:6pt;" width="3%">
-                                                        <form method='POST' id="formusu" action="../Controles/Registro/CActividad.php">
-                                                            <input type="hidden" name="hidden_actividad" value="buscarid">
-                                                            <input type="hidden" name="idactividad" value="<?php echo $r['actividad_idactividad'] ?>">
-                                                            <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></button>
-                                                        </form>    
+                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal<?php echo $r['actividad_idactividad']; ?>" data-whatever="@mdo"><i class="fa fa-pencil"> </i><b>&nbsp; EDITAR ACTIVIDAD</b></button>
+                                                        <form action="../Controles/Registro/CActividad.php" method="POST">
+                                                            <div class="modal fade" id="exampleModal<?php echo $r['actividad_idactividad']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                            <h4 class="modal-title" id="exampleModalLabel">EDITAR ACTIVIDAD</h4>
+                                                                        </div>
+
+                                                                        <div class="modal-body">
+
+                                                                            <input type="hidden" name="hidden_actividad" value="actualizar">
+                                                                            <input type="hidden" name="idactividad" value="<?php echo $r['actividad_idactividad']; ?>"/>
+                                                                            <input type="hidden" name="idsubcaterogiap" id="id_subcaterogia<?php echo $r['actividad_idactividad']; ?>" value="<?php echo $r['subcategoria_idsubcategoria'];?>"/>
+
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">SEDE:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_sede" id="id_sede<?php echo $r['actividad_idactividad']; ?>" onchange="cargarTurnosPorSedeEdit(<?php echo $r['actividad_idactividad']; ?>);">
+                                                                                    <option value="0">--SELECCIONE--</option>
+                                                                                    <?php foreach ($sedes as $s) {
+                                                                                        ?>
+
+                                                                                        <option value="<?php echo $s['sede_idsede']; ?>" <?php if ($r['sede_idsede'] == $s['sede_idsede']) echo 'selected'; ?>><?php echo $s['sede_nombre']; ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div id="divTurnos<?php echo $r['actividad_idactividad']; ?>"></div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TIPO:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tipo" id="id_tipo">                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                    <option value="1" <?php if ($r['actividad_tipo'] == '1') echo 'selected'; ?>>CORTO</option>
+                                                                                    <option value="2" <?php if ($r['actividad_tipo'] == '2') echo 'selected'; ?>>LARGO</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">EXCEPCIÓN:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_excepcion" id="id_excepcion">                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                    <option value="1" <?php if ($r['actividad_excepcion'] == '1') echo 'selected'; ?>>SI</option>
+                                                                                    <option value="2" <?php if ($r['actividad_excepcion'] == '2') echo 'selected'; ?>>NO</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">CATEGORIA:</label>
+                                                                                
+                                                                                <?php
+                                                                                    $_SESSION['subcategoria_idsubcategoria']=$r['subcategoria_idsubcategoria'];
+                                                                                    
+                                                                                ?>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_categoria" id="id_categoria<?php echo $r['actividad_idactividad']; ?>" onchange="cargarSubcatPorCatEdit(<?php echo $r['actividad_idactividad']; ?>);">
+                                                                                    <option>--SELECCIONE--</option>
+                                                                                    <?php foreach ($categorias as $c) {
+                                                                                        ?>
+
+                                                                                        <option value="<?php echo $c['categoria_idcategoria']; ?>" <?php if ($r['categoria_nombre'] == $c['categoria_nombre']) echo 'selected'; ?> ><?php echo $c['categoria_nombre']; ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div id="divSubCategoria<?php echo $r['actividad_idactividad']; ?>"></div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">SELECCIONAR DÍAS:</label><br>
+                                                                                <?php 
+                                                                                    $adia= new Actividad_Dia();
+                                                                                    $adia->setIdactividad($r['actividad_idactividad']);
+                                                                                    $adias= $adia->dias_por_actividad($adia);
+                                                                                    
+                                                                                ?>
+                                                                                    <?php foreach ($dias2 as $d) { ?>
+
+                                                                                    <label class="checkbox-inline">
+                                                                                        <input type="checkbox" id="inlineCheckbox<?php echo $d['dia_iddia']; ?>" name="check_list[]" value="<?php echo $d['dia_iddia']; ?>" <?php
+                                                                                        
+                                                                                            if ($adias != null) {
+                                                                                                foreach ($adias as $t) {
+                                                                                                    if ($t['dia_iddia'] == $d['dia_iddia'])
+                                                                                                        echo 'checked';
+                                                                                                }
+                                                                                            }
+                                                                                        
+                                                                                        ?>> <?php echo $d['dia_nombre']; ?>
+                                                                                    </label>
+                                                                                    <br>
+                                                                                <?php } ?>    
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">HORA EJECUCIÓN:</label>
+                                                                                        <input type="time" name="t_hora" class="form-control" value="<?php echo $r['actividad_horaejecucion']; ?>">
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">HORA TERMINACIÓN:</label>
+                                                                                        <input type="time" name="t_hora_ter" class="form-control" value="<?php echo $r['actividad_horatermino']; ?>">
+                                                                             </div>
+                                                                            
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">PERIODO:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_periodo" >
+                                                                                    <option>--SELECCIONE--</option>
+                                                                                        <?php foreach ($periodos as $p) {   
+                                                                                          ?>
+
+                                                                                          <option value="<?php echo $p['periodo_idperiodo']; ?>" <?php if ($r['periodo_nombre'] == $p['periodo_nombre']) echo 'selected'; ?>><?php echo $p['periodo_nombre']; ?></option>
+                                                                                      <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">PROCEDIMIENTO:</label>
+                                                                                        <select class="form-control select2" name="c_procedimiento" id="id_procedimiento" >
+
+                                                                                                        <option>--SELECCIONE--</option>
+                                                                                                                    <?php foreach ($procedimientos as $p) {   
+                                                                                                                      ?>
+
+                                                                                                                      <option value="<?php echo $p['procedimiento_idprocedimiento']; ?>" <?php if ($r['procedimiento_nombre'] == $p['procedimiento_nombre']) echo 'selected'; ?>><?php echo $p['procedimiento_nombre']; ?></option>
+                                                                                                                  <?php } ?>
+
+                                                                                        </select>
+                                                                            </div> 
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">CLIENTE:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_cliente" >
+                                                                                    <option>--SELECCIONE--</option>
+                                                                                                    <?php foreach ($clientes as $c) {   
+                                                                                                      ?>
+
+                                                                                                      <option value="<?php echo $c['cliente_idcliente']; ?>" <?php if ($r['cliente_nombre'] == $c['cliente_nombre']) echo 'selected'; ?>><?php echo $c['cliente_nombre']; ?></option>
+                                                                                                  <?php } ?>
+                                                                                  </select>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">SERVIDOR (HOSTNAME):</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_servidor" >
+                                                                                   <option>--SELECCIONE--</option>
+                                                                                            <?php foreach ($servidores as $s) {   
+                                                                                              ?>
+
+                                                                                              <option value="<?php echo $s['servidor_idservidor']; ?>" <?php if ($r['servidor_hostname'].' '.$r['servidor_ip'] == $s['servidor_hostname'].' '.$s['servidor_ip']) echo 'selected'; ?>><?php echo $s['servidor_hostname'] .' '.$s['servidor_ip'] ?></option>
+                                                                                          <?php } ?>
+                                                                                  </select>                                                                               
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">DESCRIPCIÓN DE LA ACTIVIDAD:</label>
+                                                                                       <textarea name="ta_descripcion" id="id_descripcion" class="form-control" rows="8" required><?php echo $r['actividad_descripcion'];?></textarea>
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">HORA LIMITE:</label>
+                                                                                        <input type="time" name="t_hora_limite" class="form-control" value="<?php echo $r['actividad_horalimite']; ?>">
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">INTER TURNOS:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_inter_turnos" id="id_interturnos">                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                    <option value="1" <?php if ($r['actividad_interturno'] == '1') echo 'selected'; ?>>SI</option>
+                                                                                    <option value="2" <?php if ($r['actividad_interturno'] == '2') echo 'selected'; ?>>NO</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">INTER TURNOS:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_plataforma" id="id_plataforma">                                                                                            
+                                                                                    <option value="-1">--SELECCIONE--</option>
+                                                                                    <option value="1" <?php if ($r['actividad_plataforma'] == '1') echo 'selected'; ?>>BCRS</option>
+                                                                                    <option value="2" <?php if ($r['actividad_plataforma'] == '2') echo 'selected'; ?>>SYSTEM I</option>
+                                                                                    <option value="3" <?php if ($r['actividad_plataforma'] == '3') echo 'selected'; ?>>SYSTEM P</option>
+                                                                                    <option value="4" <?php if ($r['actividad_plataforma'] == '4') echo 'selected'; ?>>SYSTEM X</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TWS:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tws" id="id_tws">                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                        <option value="1" <?php if ($r['actividad_tws'] == '1') echo 'selected'; ?>>SI</option>
+                                                                                        <option value="2" <?php if ($r['actividad_tws'] == '2') echo 'selected'; ?>>NO</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TIPO DE RESPALDO:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tipo_respaldo" id="id_tipo_respaldo">                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                        <option value="">--SELECCIONE--</option>
+                                                                                        <option value="1" <?php if ($r['actividad_tiporespaldo'] == '1') echo 'selected'; ?>>OFFLINE</option>
+                                                                                        <option value="2" <?php if ($r['actividad_tiporespaldo'] == '2') echo 'selected'; ?>>ONLINE</option>
+                                                                                        <option value="3" <?php if ($r['actividad_tiporespaldo'] == '3') echo 'selected'; ?>>N.A</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TIPO DE PROCESO:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tipo_proceso" id="id_tipo_proceso">                                                                                         
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                        <option value="">--SELECCIONE--</option>
+                                                                                        <option value="1" <?php if ($r['actividad_tipoproceso'] == '1') echo 'selected'; ?>>AUTOMÁTICO</option>
+                                                                                        <option value="2" <?php if ($r['actividad_tipoproceso'] == '2') echo 'selected'; ?>>MANUAL</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">COMENTARIO:</label>
+                                                                                       <textarea name="ta_comentario" id="id_comentario" class="form-control" rows="8"><?php echo $r['actividad_comentario'];?></textarea>
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">VENTANA MÁXIMA:</label>
+                                                                                        <input type="time" name="t_ventana" class="form-control" value="<?php echo $r['actividad_ventana_max']; ?>">
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                        <label for="recipient-name" class="control-label">ACCIÓN A TOMAR:</label>
+                                                                                       <input type="text" name="t_accion" value="<?php echo $r['actividad_accion'];?>" id="id_accion" class="form-control">
+                                                                             </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TIPO ACTIVIDAD:</label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tipo_actividad" >
+                                                                                   <option value="24">--SELECCIONE--</option>
+                                                                                        <?php foreach ($tiposact as $t) {?>
+                                                                                          <option value="<?php echo $t['tipoactividad_idtipoactividad']; ?>" <?php if ($r['actividad_ventana_max'] == $t['tipoactividad_idtipoactividad']) echo 'selected'; ?>><?php echo $t['tipoactividad_nombre']; ?></option>
+                                                                                      <?php } ?>
+                                                                                  </select>                                                                               
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+                                                                            <button type="submit" class="btn btn-primary">ACTUALIZAR</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form> 
+
+
+
+
+
+
+                                                        <!--                                                        <form method='POST' id="formusu" action="../Controles/Registro/CActividad.php">
+                                                                                                                    <input type="hidden" name="hidden_actividad" value="buscarid">
+                                                                                                                    <input type="hidden" name="idactividad" value="<?php echo $r['actividad_idactividad'] ?>">
+                                                                                                                    <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="fa fa-pencil"></i></button>
+                                                                                                                </form>    -->
                                                     </td>
                                                     <td style="font-size:6pt;" width="3%">
                                                         <div id="tws_<?php echo $r['actividad_idactividad'] ?>">
-                                                         <?php if($r['actividad_tws'] == '1') { ?>
-                                                            <input type="hidden" name="id_hidden_tws" id="id_hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
-                                                            <input type="hidden" name="hidden_tws" id="hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="activo">
-                                                            <button type="button" class="btn btn-theme02 btn-xs" onclick="cambiartws('<?php echo $r['actividad_idactividad'] ?>');" title="Desactivar">Activo</button>
-                                                          <?php } else if($r['actividad_tws'] == '2') { ?>  
-                                                             <input type="hidden" name="id_hidden_tws" id="id_hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
-                                                             <input type="hidden" name="hidden_tws" id="hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="inactivo">
-                                                             <button type="button" class="btn btn-warning btn-xs" onclick="cambiartws('<?php echo $r['actividad_idactividad'] ?>');" title="Activar">Inactivo</button>
-                                                          <?php } ?>
+                                                            <?php if ($r['actividad_tws'] == '1') { ?>
+                                                                <input type="hidden" name="id_hidden_tws" id="id_hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
+                                                                <input type="hidden" name="hidden_tws" id="hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="activo">
+                                                                <button type="button" class="btn btn-theme02 btn-xs" onclick="cambiartws('<?php echo $r['actividad_idactividad'] ?>');" title="Desactivar">Activo</button>
+                                                            <?php } else if ($r['actividad_tws'] == '2') { ?>  
+                                                                <input type="hidden" name="id_hidden_tws" id="id_hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="<?php echo $r['actividad_idactividad'] ?>">
+                                                                <input type="hidden" name="hidden_tws" id="hidden_tws<?php echo $r['actividad_idactividad'] ?>" value="inactivo">
+                                                                <button type="button" class="btn btn-warning btn-xs" onclick="cambiartws('<?php echo $r['actividad_idactividad'] ?>');" title="Activar">Inactivo</button>
+                                                            <?php } ?>
                                                         </div>
-                                                        
+
                                                     </td>
                                                 </tr>
                                             <?php } ?>
@@ -530,22 +829,22 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                         </tbody>
                                     <?php } else { ?>
 
-<!--                                        <div class="alerta">
-                                            <table align="left">
-                                                <tr><td></td></tr>
-                                                <tr>
-                                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                                    <td>
-                                                        <img class="image-alerta" src="../Recursos/Imagenes/caution.png">
-                                                    </td>    
-                                                    <td>
-                                                        <label class="LText"><b>Aún no se han asignado Documento(s).</b></label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>-->
-<div class="alert alert-danger"><i class="fa fa-warning"></i><b> Error!</b><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Su búsqueda no produjo ningún resultado..!</div> 
-<!--                                        <center><label>Su búsqueda no produjo ningún resultado. </label></center>-->
+                                        <!--                                        <div class="alerta">
+                                                                                    <table align="left">
+                                                                                        <tr><td></td></tr>
+                                                                                        <tr>
+                                                                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                                                                            <td>
+                                                                                                <img class="image-alerta" src="../Recursos/Imagenes/caution.png">
+                                                                                            </td>    
+                                                                                            <td>
+                                                                                                <label class="LText"><b>Aún no se han asignado Documento(s).</b></label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>-->
+                                        <div class="alert alert-danger"><i class="fa fa-warning"></i><b> Error!</b><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Su búsqueda no produjo ningún resultado..!</div> 
+                                        <!--                                        <center><label>Su búsqueda no produjo ningún resultado. </label></center>-->
 
 
                                     <?php } ?>
@@ -561,7 +860,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
             <!--footer start-->
             <footer class="site-footer">
                 <div class="text-center">
-                    Copyright &copy; <?php echo date("Y");?> - IBM DEL PERU - SYS-OPS
+                    Copyright &copy; <?php echo date("Y"); ?> - IBM DEL PERU - SYS-OPS
                     <a href="MantenerActividad.php" class="go-top">
                         <i class="fa fa-angle-up"></i>
                     </a>
@@ -576,15 +875,88 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <script class="include" type="text/javascript" src="../Recursos/../Recursos/assets/js/jquery.dcjqaccordion.2.7.js"></script>
         <script src="../Recursos/../Recursos/assets/js/jquery.scrollTo.min.js"></script>
         <script src="../Recursos/../Recursos/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-        <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
+
 
         <!--common script for all pages-->
         <script src="../Recursos/../Recursos/assets/js/common-scripts.js"></script>
 
         <!--script for this page-->
-    <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
+        <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
+        <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
+        <script>
+                                                        $('#exampleModal').on('show.bs.modal', function (event) {
+                                                            var button = $(event.relatedTarget) // Button that triggered the modal
+                                                            var recipient = button.data('whatever') // Extract info from data-* attributes
+                                                            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                                                            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                                                            var modal = $(this)
+                                                            modal.find('.modal-title').text('New message to ' + recipient)
+                                                            modal.find('.modal-body input').val(recipient)
+                                                        })
+        </script>
+        <script type="text/javascript">
 
+            function cargarTurnosPorSedeEdit(idactividad)
+            {
+//    alert('si llego');
+
+
+                var id_sede = document.getElementById('id_sede' + idactividad).value;
+                if (id_sede === '1') {
+                    $("#divTurnos" + idactividad).load("../Controles/Registro/CActividad.php",
+                            {
+                                hidden_actividad: "cargarTurnosPorSedeEdit",
+                                hidden_sede: id_sede,
+                                hidden_id : idactividad
+
+                            }, function () {
+                    }
+                    );
+
+                }
+                if (id_sede === '2') {
+                    $("#divTurnos" + idactividad).load("../Controles/Registro/CActividad.php",
+                            {
+                                hidden_actividad: "cargarTurnosPorAramEdit",
+                                hidden_sede: id_sede,
+                                hidden_id : idactividad
+
+                            }, function () {
+                    }
+                    );
+
+                }
+
+
+
+            }
+
+            function cargarSubcatPorCatEdit(idactividad)
+            {
+
+                var id_cat = document.getElementById('id_categoria' + idactividad).value;
+                var id_subcat = document.getElementById('id_subcaterogia' + idactividad).value;
+//       alert(id_cat);
+//      exit();
+                $("#divSubCategoria"+idactividad).load("../Controles/Registro/CActividad.php",
+                        {
+                            hidden_actividad: "cargarSubcatPorCatEdit",
+                            hidden_cat: id_cat,
+                            hidden_subcat: id_subcat
+
+                        }, function () {
+                }
+                );
+
+            }
+        </script>
+
+        <script type="text/javascript">
+<?php foreach ($actividades as $r) { ?>
+                cargarTurnosPorSedeEdit(<?php echo $r['actividad_idactividad']; ?>);
+                cargarSubcatPorCatEdit(<?php echo $r['actividad_idactividad']; ?>)
+<?php } ?>
+        </script> 
 
 
 

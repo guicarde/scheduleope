@@ -254,6 +254,38 @@ function cargarTurnosPorSede()
    
 
 }
+function cargarTurnosPorSedeEdit(idactividad)
+{
+//    alert('si llego');
+    
+    
+    var id_sede = document.getElementById('id_sede'+idactividad).value;
+   if(id_sede==='1'){
+    $("#divTurnos"+idactividad).load("../Controles/Registro/CActividad.php", 
+      {
+          hidden_actividad: "cargarTurnosPorSedeEdit",
+          hidden_sede: id_sede
+          
+      }, function(){
+      }
+      );
+      
+   }
+   if(id_sede==='2'){
+    $("#divTurnos"+idactividad).load("../Controles/Registro/CActividad.php", 
+      {
+          hidden_actividad: "cargarTurnosPorAramEdit",
+          hidden_sede: id_sede
+          
+      }, function(){
+      }
+      );
+      
+   }
+   
+   
+
+}
 
 function cargarTurnosPorSedeSc()
 {
@@ -298,6 +330,9 @@ function cargarSubcatPorCat()
       );
 
 }
+
+
+
 
 function nobackbutton(){
    window.location.hash="no-back-button";

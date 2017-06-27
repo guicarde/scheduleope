@@ -191,6 +191,7 @@ class Usuario {
                 $_SESSION['usu_email_institucional'] = $a['usu_email_institucional'];
                 $_SESSION['usu_fecharegistro'] = $a['usu_fecharegistro'];
                 $_SESSION['rol_idrol'] = $a['rol_idrol'];
+                $_SESSION['usu_foto'] = $a['usu_foto'];
                 $_SESSION['accion_usuario'] = 'editar';
             } 
          }

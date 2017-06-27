@@ -18,10 +18,18 @@ if(isset($_POST['hidden_usuario']))
         if(isset($_SESSION['accion_usuario']))
             {
                  if($_SESSION['accion_usuario']=='editar')
-                 {
-                    $nombrearchivo = $_FILES['fileArchivo']['name'];
-                    move_uploaded_file($_FILES['fileArchivo']['tmp_name'], "Fotos/" . $nombrearchivo);
+                 {                   
                     $id = $_POST['idusu'];
+                    if(($_FILES['fileArchivo']['name'])==""){                       
+                    $nombrearchivo = $_SESSION['usu_foto'];
+                    }
+                    else 
+                    {
+                    $nombrearchivo = $_FILES['fileArchivo']['name'];
+                    move_uploaded_file($_FILES['fileArchivo']['tmp_name'], "/Fotos/" . $nombrearchivo);    
+                    } 
+                                     
+                    
                     $nombreusu     = trim(strtoupper($_POST['t_nombre'])); 
                     $apeusuario     = trim(strtoupper($_POST['t_apellidos'])); 
                     $numdoc     = trim(strtoupper($_POST['t_numdoc']));
@@ -51,8 +59,13 @@ if(isset($_POST['hidden_usuario']))
                  }
                  else
                  {
+                    if(($_FILES['fileArchivo']['name'])==""){                       
+                      $nombrearchivo = "avatar5.png";
+                    }else 
+                    {
                     $nombrearchivo = $_FILES['fileArchivo']['name'];
-                    move_uploaded_file($_FILES['fileArchivo']['tmp_name'], "Fotos/" . $nombrearchivo);
+                    move_uploaded_file($_FILES['fileArchivo']['tmp_name'], "/Fotos/" . $nombrearchivo);    
+                    }
                     $nombreusu     = trim(strtoupper($_POST['t_nombre'])); 
                     $apeusuario     = trim(strtoupper($_POST['t_apellidos']));  
                     $numdoc     = trim(strtoupper($_POST['t_numdoc']));

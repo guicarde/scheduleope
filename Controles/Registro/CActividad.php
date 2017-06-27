@@ -57,6 +57,7 @@ if (isset($_POST['hidden_actividad'])) {
               $idcliente=$_POST['c_cliente'];
               $idservidor=$_POST['c_servidor'];
               $subcategoria=$_POST['c_subcategoria'];
+              $idtipoact = $_POST['c_tipo_actividad'];
               
               $duracion= new Actividad();
               $hora_dur=$duracion->RestarHoras($horaejec, $horatermino);
@@ -589,7 +590,7 @@ function LlenarComboTurnoAr($datos)
     if($datos!=null){
      
         echo "<div class='form-group'>";
-        echo "<label class='col-sm-2 col-sm-2 control-label'>TURNO</label>";
+        echo "<label class='col-sm-2 col-sm-2 control-label'>TURNO<a style='color:red'>(*)</a></label>";
         echo "<div class='col-sm-10'>";
         echo "<select class='form-control' name='c_turno' id='id_turnoar'>";
         echo "<option value='0'>--SELECCIONE--</option>";
@@ -645,7 +646,7 @@ function LlenarComboSubCat($datos)
     if($datos!=null){
      
         echo "<div class='form-group'>";
-        echo "<label class='col-sm-2 col-sm-2 control-label'>SUBCATEGORIA</label>";
+        echo "<label class='col-sm-2 col-sm-2 control-label'>SUBCATEGORIA <a style=color:red>(*)</a></label>";
         echo "<div class='col-sm-10'>";
         echo "<select class='form-control' name='c_subcategoria' id='id_subcategoria' required>";
         echo "<option>--SELECCIONE--</option>";

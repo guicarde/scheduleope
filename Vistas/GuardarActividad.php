@@ -283,7 +283,7 @@ $privilegios = $_SESSION['array_menus'];
                  <form class="form-horizontal style-form" action="../Controles/Registro/CActividad.php" method="POST" >
                  <input type="hidden" id="hiddenactividad" name="hidden_actividad" value="registrar">  
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">SEDE</label>
+                              <label class="col-sm-2 col-sm-2 control-label">SEDE<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_sede" id="id_sede" onchange="cargarTurnosPorSede();">
 
@@ -301,7 +301,7 @@ $privilegios = $_SESSION['array_menus'];
                               
                           </div>
                           <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">TIPO</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">TIPO<a style="color:red">(*)</a></label>
                                         <div class="col-sm-10">
                                             <select class="form-control" name="c_tipo" required>
                                                 <option value="">--SELECCIONE--</option>
@@ -311,7 +311,7 @@ $privilegios = $_SESSION['array_menus'];
                                         </div>
                         </div>
                         <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">EXCEPCIÓN</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">EXCEPCIÓN<a style="color:red">(*)</a></label>
                                         <div class="col-sm-10">
                                             <select class="form-control" name="c_excepcion">
                                                 <option value="">--SELECCIONE--</option>
@@ -321,11 +321,11 @@ $privilegios = $_SESSION['array_menus'];
                                         </div>
                         </div>
                         <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">CATEGORIA</label>
+                              <label class="col-sm-2 col-sm-2 control-label">CATEGORIA<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" id="id_categoria"  name="c_categoria" onchange="cargarSubcatPorCat();" required>
 
-                                            <option>--SELECCIONE--</option>
+                                            <option value="">--SELECCIONE--</option>
                                                                         <?php foreach ($categorias as $c) {   
                                                                           ?>
 
@@ -339,7 +339,7 @@ $privilegios = $_SESSION['array_menus'];
                               
                           </div>
                         <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">SELECCIONAR DÍAS</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">SELECCIONAR DÍAS<a style="color:red">(*)</a></label>
                                         <div class="col-sm-10">                                            
                                             <?php foreach ($dias as $d) { 
                                                     
@@ -353,21 +353,21 @@ $privilegios = $_SESSION['array_menus'];
                                         </div>
                         </div>  
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">HORA EJECUCIÓN</label>
+                              <label class="col-sm-2 col-sm-2 control-label">HORA EJECUCIÓN<a style="color:red">(*)</a></label>
                               <div class="col-sm-10">
                                   <input type="time" name="t_hora" maxlength="8" class="form-control" required>
                               </div>
                           </div>
                           
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">HORA TERMINACIÓN</label>
+                              <label class="col-sm-2 col-sm-2 control-label">HORA TERMINACIÓN<a style="color:red">(*)</a></label>
                               <div class="col-sm-10">
                                   <input type="time" name="t_hora_ter"  maxlength="8" class="form-control" required>
                               </div>
                           </div>
                          
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">PERIODO</label>
+                              <label class="col-sm-2 col-sm-2 control-label">PERIODO<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_periodo" id="id_periodo">
 
@@ -392,7 +392,7 @@ $privilegios = $_SESSION['array_menus'];
                           </aside>  SCRIPT PARA GENERAR EL CALENDARIO AGENDA-->
                         
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">PROCEDIMIENTOS</label>
+                              <label class="col-sm-2 col-sm-2 control-label">PROCEDIMIENTOS<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_procedimiento" id="id_procedimiento" >
 
@@ -407,7 +407,7 @@ $privilegios = $_SESSION['array_menus'];
                                     </div>
                           </div>
                             <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">CLIENTE</label>
+                              <label class="col-sm-2 col-sm-2 control-label">CLIENTE<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_cliente" id="id_cliente" required>
 
@@ -422,7 +422,7 @@ $privilegios = $_SESSION['array_menus'];
                                     </div>
                              </div>
                              <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">SERVIDOR (HOSTNAME)</label>
+                              <label class="col-sm-2 col-sm-2 control-label">SERVIDOR (HOSTNAME)<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_servidor" id="id_servidor" >
 
@@ -438,21 +438,21 @@ $privilegios = $_SESSION['array_menus'];
                              </div>
                              
                              <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">DESCRIPCIÓN DE LA ACTIVIDAD</label>
+                              <label class="col-sm-2 col-sm-2 control-label">DESCRIPCIÓN DE LA ACTIVIDAD<a style="color:red">(*)</a></label>
                               <div class="col-sm-10">
                                   <textarea name="ta_descripcion" id="id_descripcion" class="form-control" rows="8" required></textarea>
                               </div>
                           </div>
                           
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">HORA LIMITE</label>
+                              <label class="col-sm-2 col-sm-2 control-label">HORA LIMITE<a style="color:red">(*)</a></label>
                               <div class="col-sm-10">
                                   <input type="time" name="t_hora_limite" id="id_horalimite" class="form-control">
                               </div>
                           </div>
 
                           <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">INTER TURNOS</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">INTER TURNOS<a style="color:red">(*)</a></label>
                                         <div class="col-sm-10">
                                             <select class="form-control" name="c_inter_turnos">
                                                 <option value="">--SELECCIONE--</option>
@@ -463,7 +463,7 @@ $privilegios = $_SESSION['array_menus'];
                         </div>
                         
                         <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">PLATAFORMA</label>
+                              <label class="col-sm-2 col-sm-2 control-label">PLATAFORMA<a style="color:red">(*)</a></label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="c_plataforma" required>
                                                 <option value="-1">--SELECCIONE--</option>
@@ -476,7 +476,7 @@ $privilegios = $_SESSION['array_menus'];
                           </div>
 
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">TWS</label>
+                              <label class="col-sm-2 col-sm-2 control-label">TWS<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                             <select class="form-control" name="c_tws">
                                                 <option value="">--SELECCIONE--</option>
@@ -487,7 +487,7 @@ $privilegios = $_SESSION['array_menus'];
                           </div>
 
                         <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">TIPO DE RESPALDO</label>
+                              <label class="col-sm-2 col-sm-2 control-label">TIPO DE RESPALDO<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                             <select class="form-control" name="c_tipo_respaldo">
                                                 <option value="">--SELECCIONE--</option>
@@ -498,7 +498,7 @@ $privilegios = $_SESSION['array_menus'];
                                         </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">TIPO DE PROCESO</label>
+                              <label class="col-sm-2 col-sm-2 control-label">TIPO DE PROCESO<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                             <select class="form-control" name="c_tipo_proceso" required>
                                                 <option value="">--SELECCIONE--</option>
@@ -528,7 +528,7 @@ $privilegios = $_SESSION['array_menus'];
                           </div>
 
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">TIPO ACTIVIDAD</label>
+                              <label class="col-sm-2 col-sm-2 control-label">TIPO ACTIVIDAD<a style="color:red">(*)</a></label>
                                 <div class="col-sm-10">
                                         <select class="form-control" name="c_tipo_actividad" required>
 

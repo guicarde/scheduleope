@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 if (!isset($_SESSION['username'])) {
     header("location:login.php");
@@ -418,7 +418,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
 <!--        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>-->
 
 
-<!--        <script>
+        <script>
         $(document).ready(function() {
     $('#example1').DataTable( {
         dom: 'Bfrtip',
@@ -440,6 +440,6 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
 							} ]
     } );
 } );
- </script> -->
+ </script>
     </body>
 </html>

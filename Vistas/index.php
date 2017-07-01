@@ -323,9 +323,8 @@ $usuario2->conectado($usuario2);
                       </ul>
                   </li>
                    <?php } ?>
-		       <?php } ?>
-                  <?php } ?>
-                  <?php if ($_SESSION['rol']!=3) {?>
+		       
+                   <?php if ($p['menu_idmenu']==8) {?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-clock-o"></i>
@@ -336,6 +335,8 @@ $usuario2->conectado($usuario2);
                       </ul>
                   </li>
 		  <?php } ?>
+                  <?php } ?>
+                  <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-warning"></i>

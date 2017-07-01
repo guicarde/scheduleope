@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 if (!isset($_SESSION['username'])) {
     header("location:login.php");
@@ -217,7 +217,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                    
                   
 		  
-                  <?php if ($p['menu_idmenu']==10) {?>
+                  <?php if ($p['menu_idmenu']==8) {?>
                   <li class="sub-menu">
                       <a  class="active" href="javascript:;" >
                           <i class="fa fa-clock-o"></i>
@@ -228,8 +228,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                       </ul>
                   </li>
                    <?php } ?> 
-		       <?php } ?>
-                  <?php } ?>
+		       
                   <?php if ($_SESSION['rol']!=3) {?>
 		     <li class="sub-menu">
                       <a href="javascript:;" >
@@ -240,6 +239,8 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                           <li><a  href="TareasPendientes.php">Tareas Pendientes</a></li>
                       </ul>
                   </li>
+                  <?php } ?>
+                  <?php } ?>
                   <?php } ?>
                        <li class="sub-menu">
                       <a href="javascript:;" >
@@ -418,7 +419,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
 <!--        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>-->
 
 
-        <script>
+<!--        <script>
         $(document).ready(function() {
     $('#example1').DataTable( {
         dom: 'Bfrtip',
@@ -440,6 +441,6 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
 							} ]
     } );
 } );
- </script>
+ </script> -->
     </body>
 </html>

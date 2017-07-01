@@ -408,7 +408,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <!--script for this page-->
     <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
-       !--        <script src="code.jquery.com/jquery-1.12.4.js"></script>-->
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
 <!--       <script src="cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script -->

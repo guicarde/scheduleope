@@ -65,13 +65,13 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <link rel="stylesheet" type="text/css" href="../Recursos/assets/js/gritter/css/jquery.gritter.css" />
         <!--external css-->
         <link href="../Recursos/../Recursos/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+        <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
         <!-- Custom styles for this template -->
         <link href="../Recursos/../Recursos/assets/css/style.css" rel="stylesheet">
         <link href="../Recursos/css/StyleGeneral.css" rel="stylesheet">
         <link href="../Recursos/../Recursos/assets/css/style-responsive.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
+
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -326,7 +326,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
     $num = 1;
     foreach ($actividades as $r) {
         ?>
-                                                <tr style="font-size:8pt;" <?php if($r['actividad_tws']=='1')echo 'bgcolor="68FF7E"';?>>
+                                                <tr style="font-size:8pt;">
                                                     <td style="font-size:5pt;" width="5%"><?php echo $num;
                                         $num++; ?></td>
                                                     <td style="font-size:5pt;" width="5%"><?php echo date("d/m",strtotime($r['fecha_tarea'])).' '. $r['actividad_horaejecucion'] ?></td>
@@ -401,46 +401,30 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <script src="../Recursos/../Recursos/assets/js/jquery.scrollTo.min.js"></script>
         <script src="../Recursos/../Recursos/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
         <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
-
+     
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
         <!--common script for all pages-->
         <script src="../Recursos/../Recursos/assets/js/common-scripts.js"></script>
 
         <!--script for this page-->
     <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
-   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
-<!--       <script src="cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<!--       <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>   -->
-<!--       <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>-->
-        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
-<!--        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>-->
 
 
-        <script>
-        $(document).ready(function() {
-    $('#example1').DataTable( {
-        dom: 'Bfrtip',
-        buttons : [
-								{
-								extend : 'pageLength',
-								text : '<i class="fa fa-list-ol" aria-hidden="true" style="font-size:8pt;color:black; font-weight: bold;"> &nbsp;&nbsp; MOSTRAR</i>',
-							},
-							{
-								extend : 'excelHtml5',
-								text : '<i class="fa fa-file-excel-o" style="font-size:8pt;color:black; font-weight: bold;">&nbsp;&nbsp; DESCARGAR EN EXCEL</i>',
-// 								className : 'btn btn-default',
-								customize : function(
-										xlsx) {
-									var sheet = xlsx.xl.worksheets['reporte_schedule.xml'];
-									// jQuery selector to add a border
-									$('row c[r*="10"]',sheet).attr('s','25');
-								}
-							} ]
-    } );
-} );
- </script> 
+ <script>
+      $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+ 
     </body>
 </html>

@@ -35,7 +35,9 @@ class Actividad {
     private $tipoproceso;
     private $idtipoact;
     private $iddia;
-    
+    private $motivo;
+    private $detmot;
+    private $idusu;
         
     function __construct() {}
     
@@ -258,6 +260,30 @@ function getIddia() {
 function setIddia($iddia) {
     $this->iddia = $iddia;
 }
+function getMotivo() {
+    return $this->motivo;
+}
+
+function getDetmot() {
+    return $this->detmot;
+}
+
+function setMotivo($motivo) {
+    $this->motivo = $motivo;
+}
+
+function setDetmot($detmot) {
+    $this->detmot = $detmot;
+}
+function getIdusu() {
+    return $this->idusu;
+}
+
+function setIdusu($idusu) {
+    $this->idusu = $idusu;
+}
+
+
 
 
 
@@ -300,7 +326,7 @@ function setIddia($iddia) {
         function actualizar(Actividad $a){
         
         $con =  Conectar();
-        $sql = "SELECT * FROM actividad_editar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->id,$a->idtipoact)";
+        $sql = "SELECT * FROM actividad_editar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->id,$a->idtipoact,'$a->motivo','$a->detmot',$a->idusu)";
 //        var_dump($sql);
 //        exit();       
         $res = pg_query($con,$sql);
@@ -376,6 +402,26 @@ function setIddia($iddia) {
     {
          $con = Conectar();
          $sql = "SELECT * FROM actividad_buscar_p($a->idperiodo,$a->idcliente,'$a->estado','$a->fechareg','%$a->descripcion%',$a->idservidor,$a->idprocedimiento,$a->idturno,$a->iddia)";
+//         var_dump($sql);
+//         exit();   
+         $res = pg_query($con,$sql);
+         $array=null;
+         
+         while($fila = pg_fetch_assoc($res))
+         {
+               $array[] = $fila;
+         }
+         if(count($array)!=0){
+             return $array; 
+         }
+         else{
+         return null;
+         }
+    }
+              function auditoria($id)
+    {
+         $con = Conectar();
+         $sql = "SELECT * FROM actividad_auditoria($id)";
 //         var_dump($sql);
 //         exit();   
          $res = pg_query($con,$sql);

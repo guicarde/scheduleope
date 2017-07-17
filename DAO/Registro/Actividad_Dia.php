@@ -102,5 +102,23 @@ function setEstado($estado) {
             return null;
         }
     }
+    function dias_por_actividad_audit($id){
+       
+        $con = Conectar();
+        $sql = "SELECT * FROM dia_por_actividad_audit($id)";
+        $res = pg_query($con,$sql);
+        $array=null;
+        while($fila = pg_fetch_assoc($res))
+        {
+                   $array[] = $fila;
+        }
+       
+        if(count($array)!=0){
+            return $array; 
+        }
+        else{
+            return null;
+        }
+    }
     
         }

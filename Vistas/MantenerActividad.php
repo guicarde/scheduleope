@@ -542,7 +542,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                     </td>-->
 
                                                     <td style="font-size:6pt;" width="10%"><?php echo $r['periodo_nombre'] ?></td>
-                                                    <td style="font-size:6pt;" width="10%"><a href="../Controles/Registro/Procedimientos/<?php echo $r['procedimiento_archivo'] ?>" target="_new"><?php echo $r['procedimiento_nombre'] ?></a></td>
+                                                    <td style="font-size:6pt;" width="10%"><a><?php echo $r['procedimiento_nombre'] ?></a></td>
                                                     <td style="font-size:6pt;" width="10%"><?php echo $r['cliente_nombre'] ?></td>
                                                     <td style="font-size:6pt;" width="14%"><?php echo $r['servidor_hostname'] . ' (' . $r['servidor_ip'] . ')' ?></td>
         <!--                                                    <td><?php echo $r['categoria_nombre'] ?></td>

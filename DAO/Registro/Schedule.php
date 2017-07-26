@@ -251,6 +251,26 @@ function setDescripcion($descripcion) {
             return null;
         }
     }
+          function generar_masivo(){
+       
+        $con = Conectar();
+        $sql = "SELECT * FROM schedule_insertar_diario_p()";
+//         var_dump($sql);
+//         exit();
+        $res = pg_query($con,$sql);
+        $array=null;
+        while($fila = pg_fetch_assoc($res))
+        {
+                   $array[] = $fila;
+        }
+       
+        if(count($array)!=0){
+            return $array; 
+        }
+        else{
+            return null;
+        }
+    }
           function listar_tareas_pendientes(){
        
         $con = Conectar();

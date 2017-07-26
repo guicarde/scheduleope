@@ -394,7 +394,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
 
 <!--                                                    <td width="10%"><?php echo $r['periodo_nombre'] ?></td>-->
                                                     
-                                                    <td style="font-size:8pt;color:#050355;font-weight:bold" width="5%"><a href="../Controles/Registro/Procedimientos/<?php echo $r['procedimiento_archivo']?>" target="_new"><?php echo $r['procedimiento_nombre'] ?></a></td>
+                                                    <td style="font-size:8pt;color:#050355;font-weight:bold" width="5%"><a><?php echo $r['procedimiento_nombre'] ?></a></td>
                                                     <td style="font-size:8pt;color:#050355;font-weight:bold" width="10%">
                                                     <input type="hidden"  name="t_activ<?php //echo $r['actividad_idactividad']?>" value="<?php //echo $r['actividad_idactividad']?>" >                                                  
                                                     <?php echo $r['cliente_nombre'] ?>

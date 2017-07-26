@@ -149,6 +149,16 @@ if (isset($_POST['hidden_schedule'])) {
         header("location: ../../Vistas/MisSchedules.php");    
        
     }
+            else if ($accion == 'generacion_masiva')
+    {
+       
+        
+            $ob_schedule = new Schedule();            
+            $resul = $ob_schedule->generar_masivo($ob_schedule);
+
+        header("location: ../../Vistas/MantenerSchedule.php");    
+       
+    }
             else if ($accion == 'desasignar_schedule')
     {
         unset($_SESSION['arreglo_cargado_schedule']);

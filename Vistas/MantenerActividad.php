@@ -784,7 +784,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">MOTIVO DE ACTUALIZACIÓN:  <a style="color:red"> (*)</a></label>
-                                                                                <select class="form-control select2" style="width: 100%;" name="c_motivo" id="id_motivo">                                                                                            
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_motivo" id="id_motivo" required="">                                                                                            
                                                                                     <option value="">--SELECCIONE--</option>
                                                                                     <option value="1">ACTIVACIÓN</option>
                                                                                     <option value="2">CORREO</option>
@@ -794,7 +794,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">DETALLE DE MOTIVO:  <a style="color:red"> (*)</a></label>
-                                                                                <input type="text" name="t_det_mot"  id="id_det_mot" class="form-control">
+                                                                                <input type="text" name="t_det_mot"  id="id_det_mot" class="form-control" required>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
@@ -997,16 +997,16 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         </section>
 
         <!-- js placed at the end of the document so the pages load faster -->
-<!--        <script src="../Recursos/../Recursos/assets/js/jquery.js"></script>-->
-        <script src="../Recursos/../Recursos/assets/js/bootstrap.min.js"></script>
-        <script class="include" type="text/javascript" src="../Recursos/../Recursos/assets/js/jquery.dcjqaccordion.2.7.js"></script>
-        <script src="../Recursos/../Recursos/assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../Recursos/../Recursos/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+<!--        <script src="../Recursos/assets/js/jquery.js"></script>-->
+        <script src="../Recursos/assets/js/bootstrap.min.js"></script>
+        <script class="include" type="text/javascript" src="../Recursos/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="../Recursos/assets/js/jquery.scrollTo.min.js"></script>
+        <script src="../Recursos/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <!--common script for all pages-->
-        <script src="../Recursos/../Recursos/assets/js/common-scripts.js"></script>
+        <script src="../Recursos/assets/js/common-scripts.js"></script>
 
         <!--script for this page-->
         <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>

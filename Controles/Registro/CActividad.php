@@ -200,11 +200,108 @@ if (isset($_POST['hidden_actividad'])) {
                     $valor = $ob_actividad->actualizar($ob_actividad);
                     }
                     }
+        $s_idturno = $_SESSION['idturno'];
+        $s_idturnob = $_SESSION['idturnob'];
+        $s_idsede = $_SESSION['idsede'];
+        $s_iddia = $_SESSION['iddia'];
+        $s_descripcion = $_SESSION['descripcion'];
+        $s_idperiodo = $_SESSION['idperiodo'];
+        $s_idprocedimiento = $_SESSION['idprocedimiento'];
+        $s_idcliente = $_SESSION['idcliente'];
+        $s_estado =  $_SESSION['estado'];
+        $s_idservidor = $_SESSION['idservidor'];
+        $s_fechareg=$_SESSION['fechareg'];       
+        
+         if($s_idturno!='0'){
+            $ob_actividad = new Actividad();
+            $ob_actividad->setIdperiodo($s_idperiodo);
+            $ob_actividad->setIdcliente($s_idcliente);
+            $ob_actividad->setEstado($s_estado);
+            $ob_actividad->setIdservidor($s_idservidor);
+            $ob_actividad->setFechareg($s_fechareg);
+            $ob_actividad->setDescripcion($s_descripcion);
+            $ob_actividad->setIdprocedimiento($s_idprocedimiento);
+            $ob_actividad->setIdsede($s_idsede);
+            $ob_actividad->setIdturno($s_idturno);
+            $ob_actividad->setIddia($s_iddia);
+            
+            $arreglo = $ob_actividad->buscar($ob_actividad);
+
+            $_SESSION['arreglo_buscado_actividad'] = $arreglo;
+            $_SESSION['accion_actividad'] = 'busqueda';
+            unset($_SESSION['idturno']);
+            unset($_SESSION['idturnob']);
+            unset($_SESSION['idsede']);
+            unset($_SESSION['iddia']);
+            unset($_SESSION['descripcion']);
+            unset($_SESSION['idperiodo']);
+            unset($_SESSION['idprocedimiento']);
+            unset($_SESSION['idcliente']);
+            unset($_SESSION['estado']);
+            unset($_SESSION['idservidor']);
+            unset($_SESSION['fechareg']);
+            
+            header("location: ../../Vistas/MantenerActividad.php");
+        }else if($s_idturno=='0' && $s_idturnob=='0'){
+            $ob_actividad = new Actividad();
+            $ob_actividad->setIdperiodo($s_idperiodo);
+            $ob_actividad->setIdcliente($s_idcliente);
+            $ob_actividad->setEstado($s_estado);
+            $ob_actividad->setIdservidor($s_idservidor);
+            $ob_actividad->setFechareg($s_fechareg);
+            $ob_actividad->setDescripcion($s_descripcion);
+            $ob_actividad->setIdprocedimiento($s_idprocedimiento);
+            $ob_actividad->setIdsede($s_idsede);
+            $ob_actividad->setIdturno($s_idturno);
+            $ob_actividad->setIddia($s_iddia);
+//exit();
+            $arreglo = $ob_actividad->buscar($ob_actividad);
+
+            $_SESSION['arreglo_buscado_actividad'] = $arreglo;
+            $_SESSION['accion_actividad'] = 'busqueda';
+            unset($_SESSION['idturno']);
+            unset($_SESSION['idturnob']);
+            unset($_SESSION['idsede']);
+            unset($_SESSION['iddia']);
+            unset($_SESSION['descripcion']);
+            unset($_SESSION['idperiodo']);
+            unset($_SESSION['idprocedimiento']);
+            unset($_SESSION['idcliente']);
+            unset($_SESSION['estado']);
+            unset($_SESSION['idservidor']);
+            unset($_SESSION['fechareg']);
+            header("location: ../../Vistas/MantenerActividad.php");
+        }else if($s_idturno=='0' && $s_idturnob!='0' ) {
+            $ob_actividad = new Actividad();
+            $ob_actividad->setIdperiodo($s_idperiodo);
+            $ob_actividad->setIdcliente($s_idcliente);
+            $ob_actividad->setEstado($s_estado);
+            $ob_actividad->setIdservidor($s_idservidor);
+            $ob_actividad->setFechareg($s_fechareg);
+            $ob_actividad->setDescripcion($s_descripcion);
+            $ob_actividad->setIdprocedimiento($s_idprocedimiento);
+            $ob_actividad->setIdsede($s_idsede);
+            $ob_actividad->setIdturno($s_idturnob);
+            $ob_actividad->setIddia($s_iddia);
+//exit();
+            $arreglo = $ob_actividad->buscar($ob_actividad);
+
+            $_SESSION['arreglo_buscado_actividad'] = $arreglo;
+            $_SESSION['accion_actividad'] = 'busqueda';
+            unset($_SESSION['idturno']);
+            unset($_SESSION['idturnob']);
+            unset($_SESSION['idsede']);
+            unset($_SESSION['iddia']);
+            unset($_SESSION['descripcion']);
+            unset($_SESSION['idperiodo']);
+            unset($_SESSION['idprocedimiento']);
+            unset($_SESSION['idcliente']);
+            unset($_SESSION['estado']);
+            unset($_SESSION['idservidor']);
+            unset($_SESSION['fechareg']);
             header("location: ../../Vistas/MantenerActividad.php");
             }
-    
-    
-    
+       }
          else if($accion=='buscar')
     {
         if(isset($_POST['c_turno']))         { $idturno = $_POST['c_turno'];} else{ $idturno ='0'; }
@@ -238,6 +335,17 @@ if (isset($_POST['hidden_actividad'])) {
 
             $_SESSION['arreglo_buscado_actividad'] = $arreglo;
             $_SESSION['accion_actividad'] = 'busqueda';
+            $_SESSION['idturno'] = $idturno;
+            $_SESSION['idturnob'] = $idturnob;
+            $_SESSION['idsede'] = $idsede;                
+            $_SESSION['iddia'] = $iddia;            
+            $_SESSION['descripcion'] = $descripcion;
+            $_SESSION['idperiodo'] = $idperiodo;
+            $_SESSION['idprocedimiento'] = $idprocedimiento;
+            $_SESSION['idcliente'] = $idcliente;
+            $_SESSION['estado'] = $estado;
+            $_SESSION['idservidor'] = $idservidor;
+            $_SESSION['fechareg'] = $fechareg;
             header("location: ../../Vistas/MantenerActividad.php");
         }else if($idturno=='0' && $idturnob=='0'){
             $ob_actividad = new Actividad();
@@ -256,6 +364,17 @@ if (isset($_POST['hidden_actividad'])) {
 
             $_SESSION['arreglo_buscado_actividad'] = $arreglo;
             $_SESSION['accion_actividad'] = 'busqueda';
+            $_SESSION['idturno'] = $idturno;
+            $_SESSION['idturnob'] = $idturnob;
+            $_SESSION['idsede'] = $idsede;                
+            $_SESSION['iddia'] = $iddia;            
+            $_SESSION['descripcion'] = $descripcion;
+            $_SESSION['idperiodo'] = $idperiodo;
+            $_SESSION['idprocedimiento'] = $idprocedimiento;
+            $_SESSION['idcliente'] = $idcliente;
+            $_SESSION['estado'] = $estado;
+            $_SESSION['idservidor'] = $idservidor;
+            $_SESSION['fechareg'] = $fechareg;
             header("location: ../../Vistas/MantenerActividad.php");
         }else if($idturno=='0' && $idturnob!='0' ) {
             $ob_actividad = new Actividad();
@@ -273,7 +392,18 @@ if (isset($_POST['hidden_actividad'])) {
             $arreglo = $ob_actividad->buscar($ob_actividad);
 
             $_SESSION['arreglo_buscado_actividad'] = $arreglo;
-            $_SESSION['accion_actividad'] = 'busqueda';
+            $_SESSION['accion_actividad'] = 'busqueda';            
+            $_SESSION['idturno'] = $idturno;
+            $_SESSION['idturnob'] = $idturnob;
+            $_SESSION['idsede'] = $idsede;                
+            $_SESSION['iddia'] = $iddia;            
+            $_SESSION['descripcion'] = $descripcion;
+            $_SESSION['idperiodo'] = $idperiodo;
+            $_SESSION['idprocedimiento'] = $idprocedimiento;
+            $_SESSION['idcliente'] = $idcliente;
+            $_SESSION['estado'] = $estado;
+            $_SESSION['idservidor'] = $idservidor;
+            $_SESSION['fechareg'] = $fechareg;
             header("location: ../../Vistas/MantenerActividad.php");
         }
         

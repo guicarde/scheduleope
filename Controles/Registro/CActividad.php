@@ -229,17 +229,17 @@ if (isset($_POST['hidden_actividad'])) {
 
             $_SESSION['arreglo_buscado_actividad'] = $arreglo;
             $_SESSION['accion_actividad'] = 'busqueda';
-            unset($_SESSION['idturno']);
-            unset($_SESSION['idturnob']);
-            unset($_SESSION['idsede']);
-            unset($_SESSION['iddia']);
-            unset($_SESSION['descripcion']);
-            unset($_SESSION['idperiodo']);
-            unset($_SESSION['idprocedimiento']);
-            unset($_SESSION['idcliente']);
-            unset($_SESSION['estado']);
-            unset($_SESSION['idservidor']);
-            unset($_SESSION['fechareg']);
+//            unset($_SESSION['idturno']);
+//            unset($_SESSION['idturnob']);
+//            unset($_SESSION['idsede']);
+//            unset($_SESSION['iddia']);
+//            unset($_SESSION['descripcion']);
+//            unset($_SESSION['idperiodo']);
+//            unset($_SESSION['idprocedimiento']);
+//            unset($_SESSION['idcliente']);
+//            unset($_SESSION['estado']);
+//            unset($_SESSION['idservidor']);
+//            unset($_SESSION['fechareg']);
             
             header("location: ../../Vistas/MantenerActividad.php");
         }else if($s_idturno=='0' && $s_idturnob=='0'){

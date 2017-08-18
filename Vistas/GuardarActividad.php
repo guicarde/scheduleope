@@ -300,16 +300,6 @@ $privilegios = $_SESSION['array_menus'];
                           <div id="divTurnos">
                               
                           </div>
-                          <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">TIPO<a style="color:red">(*)</a></label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="c_tipo" required>
-                                                <option value="">--SELECCIONE--</option>
-                                                <option value="1">CORTO</option>
-                                                <option value="2">LARGO</option>
-                                            </select>
-                                        </div>
-                        </div>
                         <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">EXCEPCIÓN<a style="color:red">(*)</a></label>
                                         <div class="col-sm-10">

@@ -596,15 +596,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                             </div>
                                                                             <div id="divTurnos<?php echo $r['actividad_idactividad']; ?>"></div>
 
-                                                                            <div class="form-group">
-                                                                                <label for="recipient-name" class="control-label">TIPO:  <a style="color:red"> (*)</a></label>
-                                                                                <select class="form-control select2" style="width: 100%;" name="c_tipo" id="id_tipo">                                                                                            
-                                                                                    <option value="">--SELECCIONE--</option>
-                                                                                    <option value="1" <?php if ($r['actividad_tipo'] == '1') echo 'selected'; ?>>CORTO</option>
-                                                                                    <option value="2" <?php if ($r['actividad_tipo'] == '2') echo 'selected'; ?>>LARGO</option>
-
-                                                                                </select>
-                                                                            </div>
+                                                                            
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">EXCEPCIÓN:  <a style="color:red"> (*)</a></label>
                                                                                 <select class="form-control select2" style="width: 100%;" name="c_excepcion" id="id_excepcion">                                                                                            

@@ -74,12 +74,14 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <link rel="stylesheet" type="text/css" href="../Recursos/assets/js/gritter/css/jquery.gritter.css" />
         <!--external css-->
         <link href="../Recursos/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+    
         <!-- Custom styles for this template -->
         <link href="../Recursos/assets/css/style.css" rel="stylesheet">
         <link href="../Recursos/css/StyleGeneral.css" rel="stylesheet">
         <link href="../Recursos/assets/css/style-responsive.css" rel="stylesheet">
         <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
+        <!-- Select2 -->
+        <link rel="stylesheet" href="plugins/select2/select2.min.css">
 <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     
         <!--        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
@@ -280,7 +282,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">SEDE</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_sede" id="id_sede_sc" onchange="cargarTurnosPorSedeSc();">
+                                            <select class="form-control select2" name="c_sede" id="id_sede_sc" onchange="cargarTurnosPorSedeSc();">
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($sedes as $s) {
@@ -299,7 +301,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">DIA</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_dia" id="id_cliente">
+                                            <select class="form-control select2" name="c_dia" id="id_cliente">
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($dias as $d) {
@@ -315,7 +317,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">PERIODO</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_periodo" id="id_periodo">
+                                            <select class="form-control select2" name="c_periodo" id="id_periodo">
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($periodos as $p) {
@@ -331,7 +333,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">CLIENTE</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_cliente" id="id_cliente" required>
+                                            <select class="form-control select2" name="c_cliente" id="id_cliente" required>
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($clientes as $c) {
@@ -352,7 +354,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">SERVIDOR (HOSTNAME)</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_servidor" id="id_servidor" >
+                                            <select class="form-control select2" name="c_servidor" id="id_servidor" >
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($servidores as $s) {
@@ -367,7 +369,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">PROCEDIMIENTOS</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_procedimiento" id="id_procedimiento" >
+                                            <select class="form-control select2" name="c_procedimiento" id="id_procedimiento" >
 
                                                 <option value="0">--SELECCIONE--</option>
                                                 <?php foreach ($procedimientos as $p) {
@@ -382,7 +384,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">ESTADO ACTIVIDAD</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="c_estado">
+                                            <select class="form-control select2" name="c_estado">
                                                 <option value="3">--SELECCIONE--</option>
                                                 <option value="1">ACTIVO</option>
                                                 <option value="0">INACTIVO</option>
@@ -1004,13 +1006,20 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
         <script src="../Recursos/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <!-- Select2 -->
+    <script src="plugins/select2/select2.full.min.js"></script>
         <!--common script for all pages-->
         <script src="../Recursos/assets/js/common-scripts.js"></script>
 
         <!--script for this page-->
         <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
         <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
+        <script>
+          $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+          });
+        </script>
         <script>
                                                                     $('#exampleModal').on('show.bs.modal', function (event) {
                                                                         var button = $(event.relatedTarget) // Button that triggered the modal
@@ -1022,6 +1031,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                         modal.find('.modal-body input').val(recipient)
                                                                     })
         </script>
+        
         <script type="text/javascript">
 
             function cargarTurnosPorSedeEdit(idactividad)

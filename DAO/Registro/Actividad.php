@@ -38,6 +38,7 @@ class Actividad {
     private $motivo;
     private $detmot;
     private $idusu;
+    private $team;
         
     function __construct() {}
     
@@ -282,13 +283,13 @@ function getIdusu() {
 function setIdusu($idusu) {
     $this->idusu = $idusu;
 }
+function getTeam() {
+    return $this->team;
+}
 
-
-
-
-
-
-
+function setTeam($team) {
+    $this->team = $team;
+}
 //------------------------------------------------------------------------------
 
     function grabarExcel($a,$b,$c,$d,$e,$f,$g,$h,$i,$j,$k,$l,$m,$n,$o,$p,$q,$r,$s,$t,$u,$v,$w,$y)
@@ -309,7 +310,7 @@ function setIdusu($idusu) {
     function grabar(Actividad $a){
         
         $con =  Conectar();
-        $sql = "SELECT * FROM actividad_insertar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->idtipoact)";
+        $sql = "SELECT * FROM actividad_insertar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->idtipoact,'$a->team')";
 //        var_dump($sql);
 //        exit();       
         $res = pg_query($con,$sql);
@@ -326,7 +327,7 @@ function setIdusu($idusu) {
         function actualizar(Actividad $a){
         
         $con =  Conectar();
-        $sql = "SELECT * FROM actividad_editar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->id,$a->idtipoact,'$a->motivo','$a->detmot',$a->idusu)";
+        $sql = "SELECT * FROM actividad_editar('$a->tipo','$a->horaejec','$a->interturno','$a->excepcion','$a->descripcion','$a->horalimite','$a->plataforma','$a->tws','$a->tiporespaldo',$a->idperiodo,$a->idsede,$a->idprocedimiento,$a->idcliente,$a->idservidor,'1',$a->idcategoria,'$a->horatermino','$a->duracion','$a->comentario','$a->ventana','$a->accion','$a->tipoproceso',$a->id,$a->idtipoact,'$a->motivo','$a->detmot',$a->idusu,'$a->team')";
 //        var_dump($sql);
 //        exit();       
         $res = pg_query($con,$sql);

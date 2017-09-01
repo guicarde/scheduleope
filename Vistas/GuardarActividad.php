@@ -532,7 +532,16 @@ $privilegios = $_SESSION['array_menus'];
                                                       </select>
                                     </div>
                              </div>
-
+                         <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label">TEAM<a style="color:red">(*)</a></label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="c_tier" required>
+                                                <option value="">--SELECCIONE--</option>
+                                                <option value="1">PERÚ</option>
+                                                <option value="2">INDIA</option>
+                                            </select>
+                                        </div>
+                        </div>
 
                         <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label"></label>

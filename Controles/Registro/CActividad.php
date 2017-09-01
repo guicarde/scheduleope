@@ -58,13 +58,10 @@ if (isset($_POST['hidden_actividad'])) {
               $idservidor=$_POST['c_servidor'];
               $subcategoria=$_POST['c_subcategoria'];
               $idtipoact = $_POST['c_tipo_actividad'];
+              $team = $_POST['c_tier'];
               
               $duracion= new Actividad();
               $hora_dur=$duracion->RestarHoras($horaejec, $horatermino);
-                      
-              
-                      
-                      
             $Actividad = new Actividad();
           
             $Actividad->setTipo($tipo);
@@ -89,6 +86,7 @@ if (isset($_POST['hidden_actividad'])) {
             $Actividad->setIdservidor($idservidor);
             $Actividad->setIdcategoria($subcategoria);
             $Actividad->setIdtipoact($idtipoact);
+            $Actividad->setTeam($team);
             $resul=$Actividad->grabar($Actividad);
             
             $ob_act_tur = new Actividad_Turno();
@@ -145,6 +143,7 @@ if (isset($_POST['hidden_actividad'])) {
               $idtipoact = $_POST['c_tipo_actividad'];
               $motivo= $_POST['c_motivo'];
               $detmot = $_POST['t_det_mot'];
+              $team = $_POST['c_tier'];
               $id_usuario = $_SESSION['id_username'];
               
               $duracion= new Actividad();
@@ -174,6 +173,7 @@ if (isset($_POST['hidden_actividad'])) {
             $Actividad->setIdservidor($idservidor);
             $Actividad->setIdcategoria($subcategoria);
             $Actividad->setIdtipoact($idtipoact);
+            $Actividad->setTeam($team);
             $Actividad->setMotivo($motivo);
             $Actividad->setDetmot($detmot);
             $Actividad->setIdusu($id_usuario);

@@ -595,7 +595,6 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                                 </select>
                                                                             </div>
                                                                             <div id="divTurnos<?php echo $r['actividad_idactividad']; ?>"></div>
-
                                                                             
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">EXCEPCIÓN:  <a style="color:red"> (*)</a></label>
@@ -666,7 +665,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">PROCEDIMIENTO:  <a style="color:red"> (*)</a></label>
-                                                                                <select class="form-control select2" name="c_procedimiento" id="id_procedimiento" >
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_procedimiento" id="id_procedimiento" >
 
                                                                                     <option>--SELECCIONE--</option>
                                                                                     <?php foreach ($procedimientos as $p) {
@@ -775,6 +774,14 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                                         <option value="<?php echo $t['tipoactividad_idtipoactividad']; ?>" <?php if ($r['tipoactividad_idtipoactividad'] == $t['tipoactividad_idtipoactividad']) echo 'selected'; ?>><?php echo $t['tipoactividad_nombre']; ?></option>
                                                                                     <?php } ?>
                                                                                 </select>                                                                               
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recipient-name" class="control-label">TEAM:  <a style="color:red"> (*)</a></label>
+                                                                                <select class="form-control select2" style="width: 100%;" name="c_tier" id="id_team" required>                                                                                            
+                                                                                    <option value="">--SELECCIONE--</option>
+                                                                                    <option value="1" <?php if ($r['actividad_tier'] == '1') echo 'selected';?>>SI</option>
+                                                                                    <option value="2" <?php if ($r['actividad_tier'] == '2') echo 'selected';?>>NO</option>
+                                                                                </select>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label for="recipient-name" class="control-label">MOTIVO DE ACTUALIZACIÓN:  <a style="color:red"> (*)</a></label>

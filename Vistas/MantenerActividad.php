@@ -779,8 +779,8 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                                                                                 <label for="recipient-name" class="control-label">TEAM:  <a style="color:red"> (*)</a></label>
                                                                                 <select class="form-control select2" style="width: 100%;" name="c_tier" id="id_team" required>                                                                                            
                                                                                     <option value="">--SELECCIONE--</option>
-                                                                                    <option value="1" <?php if ($r['actividad_tier'] == '1') echo 'selected';?>>SI</option>
-                                                                                    <option value="2" <?php if ($r['actividad_tier'] == '2') echo 'selected';?>>NO</option>
+                                                                                    <option value="1" <?php if ($r['actividad_tier'] == '1') echo 'selected';?>>PERÚ</option>
+                                                                                    <option value="2" <?php if ($r['actividad_tier'] == '2') echo 'selected';?>>INDIA</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group">

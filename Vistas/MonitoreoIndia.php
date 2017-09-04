@@ -303,7 +303,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
                             <div class="content-panel">
                                 <table id="example1" class="table table-responsive table-advance table-hover">
                                     <h4><i class="fa fa-angle-right"></i> RESULTADO DE BUSQUEDA DE ACTIVIDADES</h4>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#FF5733;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;TAREAS TEAM INDIA<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#FFCE7F;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;TAREAS TEAM INDIA<br>
                                     <hr>
 
 <?php if ($actividades != null) { ?>
@@ -326,7 +326,7 @@ if (isset($_SESSION['accion_actividad']) && $_SESSION['accion_actividad'] != '')
     $num = 1;
     foreach ($actividades as $r) {
         ?>
-                                                <tr style="font-size:8pt;" <?php if ($r['actividad_tier'] == '2') echo 'bgcolor="FF5733"'; ?>>
+                                                <tr style="font-size:8pt;" <?php if ($r['actividad_tier'] == '2') echo 'bgcolor="FFCE7F"'; ?>>
                                                     <td style="font-size:5pt;" width="5%"><?php echo $num;
                                         $num++; ?></td>
                                                     <td style="font-size:5pt;" width="5%"><?php echo date("d/m",strtotime($r['fecha_tarea'])).' '. $r['actividad_horaejecucion'] ?></td>

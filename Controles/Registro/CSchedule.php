@@ -83,7 +83,7 @@ if (isset($_POST['hidden_schedule'])) {
             }
         } else {
             
-            echo '2';
+            echo 'Error';
             exit();
         }
     } 
@@ -159,6 +159,22 @@ if (isset($_POST['hidden_schedule'])) {
         header("location: ../../Vistas/MantenerSchedule.php");    
        
     }
+                else if ($accion == 'generacion_masiva_por_fecha')
+    {
+            $primero = $_POST['t_fecha_schedule'];
+            $fecha = date_create($_POST['t_fecha_schedule']);
+            $posterior = date_modify($fecha, '+1 day');
+            $final = date_format($posterior, 'Y-m-d');
+//            var_dump($final);
+//            exit();
+            $ob_schedule = new Schedule();
+            $ob_schedule->setFecha($primero);
+            $ob_schedule->setFirma($final);
+            $resul = $ob_schedule->generar_masivo_por_fecha($ob_schedule);
+
+        header("location: ../../Vistas/MantenerSchedule.php");    
+       
+    }
             else if ($accion == 'desasignar_schedule')
     {
         unset($_SESSION['arreglo_cargado_schedule']);
@@ -181,9 +197,11 @@ if (isset($_POST['hidden_schedule'])) {
 
         $id_schedule = $_POST['id_schedule'];
         $turno =  $_POST['turno'];
-        
+//        var_dump($turno);
+//        exit();
         $ob_actividades = new Schedule();
         $ob_actividades->setId($id_schedule);
+        
         if($turno=='19:00:00')
         {
         $arreglo = $ob_actividades->listar_por_schedule_usu($ob_actividades);

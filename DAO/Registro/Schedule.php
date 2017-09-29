@@ -22,6 +22,7 @@ class Schedule {
     private $firma;      
     private $idcliente;
     private $descripcion;
+   
     
         
   function __construct() {}
@@ -255,6 +256,26 @@ function setDescripcion($descripcion) {
        
         $con = Conectar();
         $sql = "SELECT * FROM schedule_insertar_diario_p()";
+//         var_dump($sql);
+//         exit();
+        $res = pg_query($con,$sql);
+        $array=null;
+        while($fila = pg_fetch_assoc($res))
+        {
+                   $array[] = $fila;
+        }
+       
+        if(count($array)!=0){
+            return $array; 
+        }
+        else{
+            return null;
+        }
+    }
+              function generar_masivo_por_fecha(Schedule $s){
+       
+        $con = Conectar();
+        $sql = "SELECT * FROM schedule_generar_por_fecha('$s->fecha','$s->firma')";
 //         var_dump($sql);
 //         exit();
         $res = pg_query($con,$sql);
@@ -680,7 +701,7 @@ function setDescripcion($descripcion) {
                   function cerrar_schedule(Schedule $s){
        
         $con = Conectar();
-        $sql = "SELECT * FROM actividad_cerrar_schedule($s->id,'$s->firma',$s->idusu)";
+        $sql = "SELECT * FROM actividad_cerrar_schedule($s->id,'firma.jpg',$s->idusu)";
 //        var_dump($sql);
 //        exit();
         $res = pg_query($con,$sql);

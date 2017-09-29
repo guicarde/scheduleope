@@ -255,31 +255,56 @@ if(isset($_SESSION['id_dia']))         { $iddia = $_SESSION['id_dia'];} else{ $i
       <section id="main-content">
           <section class="wrapper">
           	<h3><i class="fa fa-angle-right"></i> GENERAR SCHEDULE</h3> 
-                <form class="form-horizontal style-form" id="form_schedule" action="../Controles/Registro/CSchedule.php" method="POST">
-                    <input type="hidden" name="hidden_schedule" id="hiddenschedule" value="generacion_masiva">  
-                <input type="hidden" name="idschedule" value=""/>
+                
+                
                
                      <!-- Datos del Usuario -->
-          	<div class="row mt">
-          		<div class="col-lg-12">
+                     <div class="row mt">
+          		<div class="col-lg-6">
+                  <div class="form-panel">
+                  	  <h4 class="mb"><i class="fa fa-angle-right"></i> GENERACIÓN MASIVA POR FECHA</h4>
+                          <form class="form-horizontal style-form" id="form_schedule" action="../Controles/Registro/CSchedule.php" method="POST">
+                    <input type="hidden" name="hidden_schedule" id="hiddenschedule" value="generacion_masiva_por_fecha">  
+                          <div class="form-group">
+                                        <label class="col-sm-4 control-label">FECHA DE SCHEDULE</label>
+                                        <div class="col-sm-8">
+                                            <input type="date" name="t_fecha_schedule" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"></label>
+                                        <div class="col-sm-8">
+                                            <button type="submit" class="btn btn-theme02"><i class="fa fa-search"></i> GENERAR SCHEDULES POR FECHA</button>
+                                        </div>
+                                    </div>
+                    </form>
+                  </div>
+                            
+                            
+          		</div>
+                
+                     
+                
+          	
+          		<div class="col-lg-6">
                   <div class="form-panel">
                   	  <h4 class="mb"><i class="fa fa-angle-right"></i> GENERACIÓN MASIVA DE SCHEDULES</h4>
-                                          
+                          <form class="form-horizontal style-form" id="form_schedule" action="../Controles/Registro/CSchedule.php" method="POST">
+                    <input type="hidden" name="hidden_schedule" id="hiddenschedule" value="generacion_masiva">  
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label"></label>
                                         <div class="col-sm-10">
                                             <button type="submit" class="btn btn-theme03"><i class="fa fa-search"></i> GENERAR SCHEDULES</button>
                                         </div>
                                     </div>
-                          
-                  
+                    </form>
                   </div>
                             
                             
           		</div>
                 </div>
               
-                </form>
+                
          
           	 
           	

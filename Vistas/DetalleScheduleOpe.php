@@ -92,6 +92,8 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
         <link href="../Recursos/css/StyleGeneral.css" rel="stylesheet">
         <link href="../Recursos/../Recursos/assets/css/style-responsive.css" rel="stylesheet">
         <script type="text/javascript" src="../Recursos/js/JSGeneral.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -344,14 +346,14 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <div class="table-responsive">
-                                <table class="table table-responsive table-advance table-hover">
-                                    <h4><i class="fa fa-angle-right"></i> DETALLE DE ACTIVIDADES DEL SCHEDULE</h4>
+                                <table id="example1" class="table table-responsive table-advance table-hover table-striped table-bordered">
+                                    <h4><i class="fa fa-angle-right"></i> DETALLE DE ACTIVIDADES DEL SCHEDULE <i style="color:blue"><?php echo '('.date("d-m-Y",strtotime($_SESSION['hidden_fecha'])).')';?></i> <a style="color:red"><?php echo $_SESSION['hidden_sede'].' '. $_SESSION['hidden_turno_nombre'].' ('.$_SESSION['hidden_turno_horainicio'].' - '.$_SESSION['hidden_turno_horafin'].')';?></a></h4>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; TAREAS POR TWS
                                     <hr>
 
 <?php if ($actividades != null) { ?>
                                         <thead>
-                                            <tr style="font-size:6pt;font-weight: bold;">
+                                            <tr style="font-size:6pt;font-weight: bold;color:white" bgcolor="#2FB163">
                                                 <th width="5%"><i></i> N°</th>
                                                 <th width="5%"><i></i> HORA EJECUCIÓN</th>   
                                                 <th width="20%"><i></i> DESCRIPCIÓN</th>
@@ -363,6 +365,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                 <th width="5%"><i></i> PROCEDIMIENTO</th>
                                                 <th width="10%"><i></i> CLIENTE</th>
                                                 <th width="10%"><i></i> SERVIDOR</th>
+                                                <th width="5%"><i></i> TWS</th>
                                                 <th width="5%"><i></i> COMENTARIO</th>
                                                 <th width="5%"><i></i> INICIO</th>
                                                 <th width="5%"><i></i> FINALIZACIÓN</th>
@@ -400,7 +403,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                     <?php echo $r['cliente_nombre'] ?>
                                                     </td>
                                                     <td style="font-size:8pt;color:#050355;font-weight:bold" width="10%"><?php echo $r['servidor_hostname'].' ('.$r['servidor_ip'].')' ?></td>
-                                                    
+                                                    <td align="center" style="font-size:8pt;color:#050355;font-weight:bold" width="10%"><?php if($r['actividad_tws']=='1'){echo 'SI';}else { echo 'NO';}?></td>
                                                     <td style="font-size:8pt;color:#050355;font-weight:bold" width="5%"><?php if($r['actividad_comentario']!= '') { ?>
                                                         <a onclick="ventana('<?php if ($r['actividad_comentario']!=null){ echo trim(strtoupper($r['actividad_comentario']));}else {echo 'NO TIENE COMENTARIO';} ?>')" class="btn btn-info  btn-sm" >Comentario</a>
                                                     <?php }?>
@@ -557,6 +560,40 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
     <!--script for this page-->
     <script type="text/javascript" src="../Recursos/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../Recursos/assets/js/gritter-conf.js"></script>
- 
+    
+    <!--        <script src="code.jquery.com/jquery-1.12.4.js"></script>-->
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+<!--       <script src="cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<!--       <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>   -->
+<!--       <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>-->
+        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+<!--        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>-->
+    
+<script>
+        $(document).ready(function() {
+    $('#example1').DataTable( {
+        dom: 'Bfrtip',
+        buttons : [
+								{
+								extend : 'pageLength',
+								text : '<i class="fa fa-list-ol" aria-hidden="true" style="font-size:8pt;color:black; font-weight: bold;"> &nbsp;&nbsp; MOSTRAR</i>',
+							},
+							{
+								extend : 'excelHtml5',
+								text : '<i class="fa fa-file-excel-o" style="font-size:8pt;color:black; font-weight: bold;">&nbsp;&nbsp; DESCARGAR EN EXCEL</i>',
+// 								className : 'btn btn-default',
+								customize : function(
+										xlsx) {
+									var sheet = xlsx.xl.worksheets['reporte_schedule.xml'];
+
+									// jQuery selector to add a border
+									$('row c[r*="10"]',sheet).attr('s','25');
+								}
+							} ]
+    } );
+} );
+ </script> 
     </body>
 </html>

@@ -14,11 +14,19 @@ if(isset($_POST['hidden_documento']))
   
             if($accion=='generar_reporte_schedule')
     {   
-       $idschedule= $_POST['id_schedule'];
-                          
+                $idschedule= $_POST['id_schedule'];
+                $turno =  $_POST['turno'];
+//                var_dump($turno);
+//                exit();
                 $ob = new Schedule();
                 $ob->setId($idschedule);
-                $lista = $ob->reporte($ob);
+                if($turno=='23:00:00'){
+                $lista = $ob->listar_por_schedule_usu_noche($ob);    
+                }else if($turno=='19:00:00'){
+                $lista = $ob->listar_por_schedule_usu($ob);    
+                }else{
+                $lista = $ob->listar_por_schedule_usu_dia($ob);    
+                }
                 //echo 'si carga arreglo';
                 //exit();
                 $lista2 = $ob->buscarPorId($ob);

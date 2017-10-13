@@ -197,6 +197,13 @@ if (isset($_POST['hidden_schedule'])) {
 
         $id_schedule = $_POST['id_schedule'];
         $turno =  $_POST['turno'];
+        
+        
+        $fecha =  $_POST['hidden_fecha'];
+        $sede =  $_POST['hidden_sede'];
+        $nombreturno =  $_POST['hidden_turno_nombre'];        
+        $horain =  $_POST['hidden_turno_horainicio'];
+        $horafin =  $_POST['hidden_turno_horafin'];
 //        var_dump($turno);
 //        exit();
         $ob_actividades = new Schedule();
@@ -217,6 +224,11 @@ if (isset($_POST['hidden_schedule'])) {
         $_SESSION['turno'] = $turno ;
         $_SESSION['hora_turno'] = $turno;
         
+        $_SESSION['hidden_fecha'] = $fecha;
+        $_SESSION['hidden_sede'] = $sede;
+        $_SESSION['hidden_turno_nombre'] = $nombreturno;
+        $_SESSION['hidden_turno_horainicio'] = $horain;
+        $_SESSION['hidden_turno_horafin'] = $horafin;
             
         header("location: ../../Vistas/DetalleScheduleOpe.php");    
        

@@ -35,7 +35,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
         <meta name="author" content="Dashboard">
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-        <title>SISTEMA DE GENERACIÓN DE SCHEDULE</title>
+        <title>SCHEDULE INDIA</title>
 
         <!-- Bootstrap core CSS -->
         <link href="../Recursos/../Recursos/assets/css/bootstrap.css" rel="stylesheet">
@@ -275,6 +275,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                     <td>
                                                         <form method='POST' action="../Controles/Registro/CReportesPdf.php" target="_new">
                                                             <input type="hidden" name="id_schedule" value="<?php echo $r['schedule_idschedule'] ?>">
+                                                            <input type="hidden" name="turno" value="<?php echo $r['turno_horainicio'] ?>">
                                                             <input type="hidden" name="hidden_documento" value="generar_reporte_schedule">
                                                             <button type="submit" class="btn btn-success btn-xs"  title="Ver Schedule"><i class="fa fa-camera "> VER SCHEDULE</i></button>
                                                         </form>                                                       

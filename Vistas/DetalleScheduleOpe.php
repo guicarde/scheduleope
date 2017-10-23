@@ -346,7 +346,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                         <div class="col-md-12">
                             <div class="content-panel">
                                 <div class="table-responsive">
-                                <table id="example1" class="table table-responsive table-advance table-hover table-striped table-bordered">
+                                <table id="example1" class="table table-responsive table-advance table-hover table-bordered">
                                     <h4><i class="fa fa-angle-right"></i> DETALLE DE ACTIVIDADES DEL SCHEDULE <i style="color:blue"><?php echo '('.date("d-m-Y",strtotime($_SESSION['hidden_fecha'])).')';?></i> <a style="color:red"><?php echo $_SESSION['hidden_sede'].' '. $_SESSION['hidden_turno_nombre'].' ('.$_SESSION['hidden_turno_horainicio'].' - '.$_SESSION['hidden_turno_horafin'].')';?></a></h4>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color:#68FF7E;font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp; TAREAS POR TWS
                                     <hr>
@@ -379,7 +379,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                             foreach ($actividades as $r) { 
                                 
                                 ?>
-                                                <tr style="font-size:8pt;"  <?php if($r['actividad_tws']=='1')echo 'bgcolor="68FF7E"';?>>
+                                                <tr style="font-size:8pt;" <?php if($r['actividad_tws']=='1'){ echo 'bgcolor="#68FF7E"';}?>>
                                                     <td style="font-size:7pt;color:#050355;font-weight:bold" width="5%"><?php echo $num;
                                         $num++; ?></td>
                                                     <td style="font-size:8pt;color:#050355;font-weight:bold" width="5%"><?php echo $r['actividad_horaejecucion'] ?></td>
@@ -571,9 +571,10 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
         <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
 <!--        <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>-->
     
-<script>
+<!--<script>
         $(document).ready(function() {
     $('#example1').DataTable( {
+        "pageLength": 200,
         dom: 'Bfrtip',
         buttons : [
 								{
@@ -594,6 +595,6 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
 							} ]
     } );
 } );
- </script> 
+ </script> -->
     </body>
 </html>

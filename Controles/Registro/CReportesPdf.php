@@ -21,11 +21,11 @@ if(isset($_POST['hidden_documento']))
                 $ob = new Schedule();
                 $ob->setId($idschedule);
                 if($turno=='23:00:00'){
-                $lista = $ob->listar_por_schedule_usu_noche($ob);    
+                $lista = $ob->reporte_noche($ob);    
                 }else if($turno=='19:00:00'){
-                $lista = $ob->listar_por_schedule_usu($ob);    
+                $lista = $ob->reporte_tarde_noche($ob);    
                 }else{
-                $lista = $ob->listar_por_schedule_usu_dia($ob);    
+                $lista = $ob->reporte_dia($ob);    
                 }
                 //echo 'si carga arreglo';
                 //exit();

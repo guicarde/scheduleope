@@ -513,6 +513,26 @@ function setDescripcion($descripcion) {
          return null;
          }
     }
+                    function reporte_tarde_noche(Schedule $s)
+    {
+         $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+         //$con = Conectar();
+         $sql = "SELECT * FROM schedule_reporte_tarde_noche($s->id)";
+         
+         $res = pg_query($con,$sql);
+         $array=null;
+         
+         while($fila = pg_fetch_assoc($res))
+         {
+               $array[] = $fila;
+         }
+         if(count($array)!=0){
+             return $array; 
+         }
+         else{
+         return null;
+         }
+    }
                   function listar_por_schedule_usu_noche(Schedule $s)
     {
          $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
@@ -534,11 +554,52 @@ function setDescripcion($descripcion) {
          return null;
          }
     }
+                      function reporte_noche(Schedule $s)
+    {
+         $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+         //$con = Conectar();
+         $sql = "SELECT * FROM schedule_reporte_noche($s->id)";
+//         var_dump($sql);
+//         exit();
+         $res = pg_query($con,$sql);
+         $array=null;
+         
+         while($fila = pg_fetch_assoc($res))
+         {
+               $array[] = $fila;
+         }
+         if(count($array)!=0){
+             return $array; 
+         }
+         else{
+         return null;
+         }
+    }
            function listar_por_schedule_usu_dia(Schedule $s)
     {
          $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
          //$con = Conectar();
          $sql = "SELECT * FROM actividad_por_schedule_usu_dia($s->id)";
+         
+         $res = pg_query($con,$sql);
+         $array=null;
+         
+         while($fila = pg_fetch_assoc($res))
+         {
+               $array[] = $fila;
+         }
+         if(count($array)!=0){
+             return $array; 
+         }
+         else{
+         return null;
+         }
+    }
+               function reporte_dia(Schedule $s)
+    {
+         $con = pg_connect("host=echo.db.elephantsql.com port=5432 dbname=isbcajie user=isbcajie password=4d8utyiTFBbOUrvMSaXZkoEg2JyL4c8i") or die("PROBLEMAS AL LOGRAR CONEXIÓN");
+         //$con = Conectar();
+         $sql = "SELECT * FROM schedule_reporte_dia($s->id)";
          
          $res = pg_query($con,$sql);
          $array=null;

@@ -8,6 +8,7 @@ include_once '../../DAO/Registro/Schedule.php';
 include_once '../../DAO/Registro/Turno.php';
 include_once '../../DAO/Registro/Schedule_Actividad.php';
 include_once '../../Recursos/classes_excel/PHPExcel.php';
+include_once '../../Recursos/PHPMailer-master/src/PHPMailer.php';
 //include_once '../../DAO/Registro/Actividad.php';
 //include_once '../../DAO/Registro/Subcategoria.php';
 //var_dump($productos);
@@ -723,6 +724,7 @@ if (isset($_POST['hidden_schedule'])) {
           }         
           
           $num++;
+         
          $objSheet->setCellValue('A'.$num, $num-1);
          $objSheet->setCellValue('B'.$num, date('H:i', strtotime($a['actividad_horaejecucion'])));
          $objSheet->setCellValue('C'.$num, $a['actividad_descripcion']);
@@ -732,7 +734,9 @@ if (isset($_POST['hidden_schedule'])) {
          $objSheet->setCellValue('G'.$num, $a['servidor_hostname'].' '.$a['servidor_ip'] );
          $objSheet->setCellValue('H'.$num, $tws);
          $objSheet->setCellValue('I'.$num, $a['actividad_comentario']);
-         
+         if ($a['actividad_tws'] == '1') {
+          $objXLS->getActiveSheet()->getStyle('A'.$num.':L'.$num)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('68FF7E');
+         } 
 //         $objSheet->setCellValue('G'.$num, date('H:i', strtotime($a['schedact_horaini'])));
 //         $objSheet->setCellValue('H'.$num, date('H:i', strtotime($a['schedact_horafin'])));
 //         $objSheet->setCellValue('I'.$num, date('H:i', strtotime($a['schedact_duracion'])));
@@ -753,6 +757,8 @@ if (isset($_POST['hidden_schedule'])) {
         $objXLS->getActiveSheet()->getStyle('L1')->getFont()->setBold(true);
         //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
         $objXLS->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
+        
+        
         $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
@@ -772,7 +778,39 @@ if (isset($_POST['hidden_schedule'])) {
         // It will be called file.xls
         header('Content-Disposition: attachment; filename="Reporte_Schedule.xls"');
         $objWriter->save('php://output');
-       
+        
+        $yourName = 'Prueba';
+        $yourEmail_2 = 'gcardenaslaz@gmail.com';
+
+        //ini_set("include_path", "../inc/phpmailer/");
+        //require("class.phpmailer.php");
+        $mail = new PHPMailer();
+
+        $mail->From     = 'gcardenasl2014@gmail.com';
+        $mail->FromName = 'Prueba';
+        $mail->AddAddress($yourEmail_2); 
+        //$mail->AddBCC($yourEmail_2); 
+
+        /*if(!empty($_FILES['attachment']['tmp_name'])){
+            $new_name = urlencode( rand(0,10000).rand(10000,20000).$_FILES['attachment']['name'] );
+            if(move_uploaded_file($_FILES['attachment']['tmp_name'],'./uploads/'.$new_name)){
+                $string_file = '<p>Curriculum allegato: '</p>';
+            }
+        }*/
+
+        $mail->WordWrap = 50;                              // set word wrap
+        $mail->IsHTML(true);                               // send as HTML
+
+        $mail->Subject  =  'Riepilogo settimanale';
+
+        $mail->Body     =  "Riepilogo settimanale dell'impianto: ".utf8_decode($inv['name']);
+
+        $mail->AltBody  =  "Riepilogo settimanale dell'impianto: ".utf8_decode($inv['name']);
+        $mail->AddAttachment('php://output');
+
+        if ( $mail->Send()){
+            //ok
+        }
     }
    
     

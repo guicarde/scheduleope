@@ -256,6 +256,7 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                 <th><i class="fa fa-clock-o"></i> HORA DE FIN DE TURNO</th>
                                                 <th></th>
                                                 <th></th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -280,6 +281,14 @@ if (isset($_SESSION['accion_schedule']) && $_SESSION['accion_schedule'] != '') {
                                                             <button type="submit" class="btn btn-success btn-xs"  title="Ver Schedule"><i class="fa fa-camera "> VER SCHEDULE</i></button>
                                                         </form>                                                       
                                                           
+                                                    </td>
+                                                    <td>
+                                                        <form method='POST' action="../Controles/Registro/CSchedule.php" target="_new">
+                                                            <input type="hidden" name="id_schedule" value="<?php echo $r['schedule_idschedule'] ?>">
+                                                            <input type="hidden" name="hidden_schedule" value="generar_excel">
+                                                            <input type="hidden" name="turno" value="<?php echo $r['turno_horainicio'] ?>">
+                                                            <button type="submit" class="btn btn-facebook btn-xs"  title="Reporte Schedule Excel"><i class="fa fa-download"> REPORTE EXCEL</i></button>
+                                                        </form>
                                                     </td>
                                                     <td>
                                                         <form method='POST' action="../Controles/Registro/CSchedule.php">

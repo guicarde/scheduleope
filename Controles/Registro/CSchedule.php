@@ -7,6 +7,7 @@ include_once '../../DAO/Conexion.php';
 include_once '../../DAO/Registro/Schedule.php';
 include_once '../../DAO/Registro/Turno.php';
 include_once '../../DAO/Registro/Schedule_Actividad.php';
+include_once '../../Recursos/classes_excel/PHPExcel.php';
 //include_once '../../DAO/Registro/Actividad.php';
 //include_once '../../DAO/Registro/Subcategoria.php';
 //var_dump($productos);
@@ -675,6 +676,103 @@ if (isset($_POST['hidden_schedule'])) {
    else if ($accion == 'aceptar_act')
     {
        header("location: ../../Vistas/DetalleTareasAsignadas.php");
+    }
+    
+    else if ($accion == 'generar_excel')
+    {
+        $id_schedule = $_POST['id_schedule'];
+        $turno =  $_POST['turno'];
+     
+        $ob = new Schedule();
+        $ob->setId($id_schedule);
+
+        if($turno=='19:00:00')
+        {
+        $arreglo = $ob->reporte_tarde_noche($ob);
+        }else if ($turno=='23:00:00'){
+        $arreglo = $ob->reporte_noche($ob);   
+        }else{
+        $arreglo = $ob->reporte_dia($ob); 
+        }
+//        var_dump($arreglo);
+//        exit();
+        $objXLS = new PHPExcel();
+        $objSheet = $objXLS->setActiveSheetIndex(0);
+        
+        $objSheet->setCellValue('A1', 'N°');
+        $objSheet->setCellValue('B1', 'HORA DE EJECUCIÓN');
+        $objSheet->setCellValue('C1', 'DESCRIPCIÓN');
+        $objSheet->setCellValue('D1', 'HORA FIN');
+        $objSheet->setCellValue('E1', 'PROCEDIMIENTO');
+        $objSheet->setCellValue('F1', 'CLIENTE');
+        $objSheet->setCellValue('G1', 'SERVIDOR');
+        $objSheet->setCellValue('H1', 'TWS');
+        $objSheet->setCellValue('I1', 'COMENTARIO');
+        $objSheet->setCellValue('J1', 'INICIO');
+        $objSheet->setCellValue('K1', 'FIN');
+        $objSheet->setCellValue('L1', 'OBSERVACION');
+        
+        $num = 1;
+        foreach ($arreglo as $a) {
+            
+        if ($a['actividad_tws'] == '1') {
+          $tws = 'SI';
+          }
+        if ($a['actividad_tws'] == '2') {
+          $tws = 'NO';
+          }         
+          
+          $num++;
+         $objSheet->setCellValue('A'.$num, $num-1);
+         $objSheet->setCellValue('B'.$num, date('H:i', strtotime($a['actividad_horaejecucion'])));
+         $objSheet->setCellValue('C'.$num, $a['actividad_descripcion']);
+         $objSheet->setCellValue('D'.$num, date('H:i', strtotime($a['actividad_horatermino'])));
+         $objSheet->setCellValue('E'.$num, $a['procedimiento_nombre']);
+         $objSheet->setCellValue('F'.$num, $a['cliente_nombre']);
+         $objSheet->setCellValue('G'.$num, $a['servidor_hostname'].' '.$a['servidor_ip'] );
+         $objSheet->setCellValue('H'.$num, $tws);
+         $objSheet->setCellValue('I'.$num, $a['actividad_comentario']);
+         
+//         $objSheet->setCellValue('G'.$num, date('H:i', strtotime($a['schedact_horaini'])));
+//         $objSheet->setCellValue('H'.$num, date('H:i', strtotime($a['schedact_horafin'])));
+//         $objSheet->setCellValue('I'.$num, date('H:i', strtotime($a['schedact_duracion'])));
+//         $objSheet->setCellValue('J'.$num, $a['schedact_comentario']);
+//         $objSheet->setCellValue('K'.$num, $a['usu_apellidos_usuario'].' '.$a['usu_nombres_usuario']);
+        }
+        $objXLS->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('D1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('E1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('F1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('G1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('H1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('I1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('J1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('K1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('L1')->getFont()->setBold(true);
+        //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
+        $objXLS->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
+        $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("D")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("E")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("F")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("G")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("H")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("I")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("J")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("K")->setAutoSize(true);
+        $objXLS->getActiveSheet()->getColumnDimension("L")->setAutoSize(true);
+        $objXLS->getActiveSheet()->setTitle('REPORTE_EXCEL');
+        $objXLS->setActiveSheetIndex(0);
+        $objWriter = PHPExcel_IOFactory::createWriter($objXLS,'Excel5');
+        header('Content-type: application/vnd.ms-excel');
+        // It will be called file.xls
+        header('Content-Disposition: attachment; filename="Reporte_Schedule.xls"');
+        $objWriter->save('php://output');
+       
     }
    
     

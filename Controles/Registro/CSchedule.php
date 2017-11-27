@@ -8,7 +8,7 @@ include_once '../../DAO/Registro/Schedule.php';
 include_once '../../DAO/Registro/Turno.php';
 include_once '../../DAO/Registro/Schedule_Actividad.php';
 include_once '../../Recursos/classes_excel/PHPExcel.php';
-include_once '../../Recursos/PHPMailer-master/src/PHPMailer.php';
+//include_once '../../Recursos/PHPMailer-master/src/PHPMailer.php';
 //include_once '../../DAO/Registro/Actividad.php';
 //include_once '../../DAO/Registro/Subcategoria.php';
 //var_dump($productos);
@@ -764,7 +764,7 @@ if (isset($_POST['hidden_schedule'])) {
         //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
         $objXLS->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
         $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setColor()->setRGB('FF5733');
-        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setSize(18);
+       // $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setSize(18);
         $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);

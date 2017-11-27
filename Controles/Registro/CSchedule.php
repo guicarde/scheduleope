@@ -763,7 +763,7 @@ if (isset($_POST['hidden_schedule'])) {
         $objXLS->getActiveSheet()->getStyle('L2')->getFont()->setBold(true);
         //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
         $objXLS->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
-        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setColor()->setRGB('FF5733');
+        //$objXLS->getActiveSheet()->getStyle('C1')->getFont()->setColor()->setRGB('FF5733');
        // $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setSize(18);
         $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);

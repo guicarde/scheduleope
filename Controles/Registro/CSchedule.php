@@ -705,6 +705,7 @@ if (isset($_POST['hidden_schedule'])) {
         $objXLS = new PHPExcel();
         $objSheet = $objXLS->setActiveSheetIndex(0);
         $objSheet->mergeCells('C1:E1');
+        
         $objSheet->setCellValue('C1', $fecha.' '.$sede.' '.$nombreturno.' ('.$turno.' - '.$horafin.')');
         $objSheet->setCellValue('A2', 'N°');
         $objSheet->setCellValue('B2', 'HORA DE EJECUCIÓN');
@@ -762,8 +763,8 @@ if (isset($_POST['hidden_schedule'])) {
         $objXLS->getActiveSheet()->getStyle('L2')->getFont()->setBold(true);
         //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
         $objXLS->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
-        
-        
+        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setColor()->setRGB('FF5733');
+        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setSize(18);
         $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
         $objXLS->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
@@ -781,7 +782,8 @@ if (isset($_POST['hidden_schedule'])) {
         $objWriter = PHPExcel_IOFactory::createWriter($objXLS,'Excel5');
         header('Content-type: application/vnd.ms-excel');
         // It will be called file.xls
-        header('Content-Disposition: attachment; filename="'.$fecha.'_'.$sede.'_'.$nombreturno.'".xls"');
+        //header('Content-Disposition: attachment; filename="Reporte_Schedule.xls"');
+        header('Content-Disposition: attachment; filename="'.date("d-m-Y",strtotime($fecha)).'_'.$sede.'_'.$nombreturno.'.xls"');
         $objWriter->save('php://output');        
         
     }

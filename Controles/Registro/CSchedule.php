@@ -683,6 +683,11 @@ if (isset($_POST['hidden_schedule'])) {
     {
         $id_schedule = $_POST['id_schedule'];
         $turno =  $_POST['turno'];
+        
+        $fecha =  $_POST['hidden_fecha'];
+        $sede =  $_POST['hidden_sede'];
+        $nombreturno =  $_POST['hidden_turno_nombre'];   
+        $horafin =  $_POST['hidden_turno_horafin'];
      
         $ob = new Schedule();
         $ob->setId($id_schedule);
@@ -699,21 +704,22 @@ if (isset($_POST['hidden_schedule'])) {
 //        exit();
         $objXLS = new PHPExcel();
         $objSheet = $objXLS->setActiveSheetIndex(0);
+        $objSheet->mergeCells('C1:E1');
+        $objSheet->setCellValue('C1', $fecha.' '.$sede.' '.$nombreturno.' ('.$turno.' - '.$horafin.')');
+        $objSheet->setCellValue('A2', 'N°');
+        $objSheet->setCellValue('B2', 'HORA DE EJECUCIÓN');
+        $objSheet->setCellValue('C2', 'DESCRIPCIÓN');
+        $objSheet->setCellValue('D2', 'HORA FIN');
+        $objSheet->setCellValue('E2', 'PROCEDIMIENTO');
+        $objSheet->setCellValue('F2', 'CLIENTE');
+        $objSheet->setCellValue('G2', 'SERVIDOR');
+        $objSheet->setCellValue('H2', 'TWS');
+        $objSheet->setCellValue('I2', 'COMENTARIO');
+        $objSheet->setCellValue('J2', 'INICIO');
+        $objSheet->setCellValue('K2', 'FIN');
+        $objSheet->setCellValue('L2', 'OBSERVACION');
         
-        $objSheet->setCellValue('A1', 'N°');
-        $objSheet->setCellValue('B1', 'HORA DE EJECUCIÓN');
-        $objSheet->setCellValue('C1', 'DESCRIPCIÓN');
-        $objSheet->setCellValue('D1', 'HORA FIN');
-        $objSheet->setCellValue('E1', 'PROCEDIMIENTO');
-        $objSheet->setCellValue('F1', 'CLIENTE');
-        $objSheet->setCellValue('G1', 'SERVIDOR');
-        $objSheet->setCellValue('H1', 'TWS');
-        $objSheet->setCellValue('I1', 'COMENTARIO');
-        $objSheet->setCellValue('J1', 'INICIO');
-        $objSheet->setCellValue('K1', 'FIN');
-        $objSheet->setCellValue('L1', 'OBSERVACION');
-        
-        $num = 1;
+        $num = 2;
         foreach ($arreglo as $a) {
             
         if ($a['actividad_tws'] == '1') {
@@ -721,8 +727,7 @@ if (isset($_POST['hidden_schedule'])) {
           }
         if ($a['actividad_tws'] == '2') {
           $tws = 'NO';
-          }         
-          
+          }                   
           $num++;
          
          $objSheet->setCellValue('A'.$num, $num-1);
@@ -743,20 +748,20 @@ if (isset($_POST['hidden_schedule'])) {
 //         $objSheet->setCellValue('J'.$num, $a['schedact_comentario']);
 //         $objSheet->setCellValue('K'.$num, $a['usu_apellidos_usuario'].' '.$a['usu_nombres_usuario']);
         }
-        $objXLS->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('C1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('D1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('E1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('F1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('G1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('H1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('I1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('J1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('K1')->getFont()->setBold(true);
-        $objXLS->getActiveSheet()->getStyle('L1')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('B2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('C2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('D2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('E2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('F2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('G2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('H2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('I2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('J2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('K2')->getFont()->setBold(true);
+        $objXLS->getActiveSheet()->getStyle('L2')->getFont()->setBold(true);
         //$objXLS->getActiveSheet()->getStyle('H3')->getFont()->setColor(PHPExcel_Style_Color::COLOR_RED);
-        $objXLS->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
+        $objXLS->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('CCFFE5');
         
         
         $objXLS->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
@@ -776,41 +781,9 @@ if (isset($_POST['hidden_schedule'])) {
         $objWriter = PHPExcel_IOFactory::createWriter($objXLS,'Excel5');
         header('Content-type: application/vnd.ms-excel');
         // It will be called file.xls
-        header('Content-Disposition: attachment; filename="Reporte_Schedule.xls"');
-        $objWriter->save('php://output');
+        header('Content-Disposition: attachment; filename="'.$fecha.'_'.$sede.'_'.$nombreturno.'".xls"');
+        $objWriter->save('php://output');        
         
-        $yourName = 'Prueba';
-        $yourEmail_2 = 'gcardenaslaz@gmail.com';
-
-        //ini_set("include_path", "../inc/phpmailer/");
-        //require("class.phpmailer.php");
-        $mail = new PHPMailer();
-
-        $mail->From     = 'gcardenasl2014@gmail.com';
-        $mail->FromName = 'Prueba';
-        $mail->AddAddress($yourEmail_2); 
-        //$mail->AddBCC($yourEmail_2); 
-
-        /*if(!empty($_FILES['attachment']['tmp_name'])){
-            $new_name = urlencode( rand(0,10000).rand(10000,20000).$_FILES['attachment']['name'] );
-            if(move_uploaded_file($_FILES['attachment']['tmp_name'],'./uploads/'.$new_name)){
-                $string_file = '<p>Curriculum allegato: '</p>';
-            }
-        }*/
-
-        $mail->WordWrap = 50;                              // set word wrap
-        $mail->IsHTML(true);                               // send as HTML
-
-        $mail->Subject  =  'Riepilogo settimanale';
-
-        $mail->Body     =  "Riepilogo settimanale dell'impianto: ".utf8_decode($inv['name']);
-
-        $mail->AltBody  =  "Riepilogo settimanale dell'impianto: ".utf8_decode($inv['name']);
-        $mail->AddAttachment('php://output');
-
-        if ( $mail->Send()){
-            //ok
-        }
     }
    
     
